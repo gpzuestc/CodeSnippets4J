@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:sca="http://www.springframework.org/schema/sca"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+            http://www.springframework.org/schema/sca http://www.springframework.org/schema/sca/spring-sca.xsd">
+
+    <!-- enable autowire -->
+     <context:annotation-config/>
+     <context:component-scan base-package="com"/>
+     <context:property-placeholder location="classpath:kestrel.properties" />
+<!--      <import resource="kestrel.xml" /> -->
+
+	<bean id="scheduler"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="mobileBlackeListTrigger"/>
+                <ref bean="rankListTrigger"/>
+            </list>
+        </property>
+     </bean>
+     
+      <bean id="mobileBlackeListTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="syncMobileBlackList"/>
+        <!-- 0秒开始没10秒执行一次 抓取一次 -->
+        <property name="cronExpression" value="0/10 * * * * ?"/>
+    </bean>
+    
+      <bean id="syncMobileBlackList"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="testTimerTask"/>
+        <property name="targetMethod" value="black"/>
+        <property name="concurrent" value="true"/>
+    </bean>
+    
+    
+   <bean id="rankListTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail" ref="fetchRankList"/>
+        <!-- 延迟1秒开始 -->
+        <property name="startDelay" value="1000"></property>
+        <!-- 没5秒执行一次 -->
+        <property name="repeatInterval" value="5000"></property>
+    </bean>
+    
+     <bean id="fetchRankList"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="testTimerTask"/>
+        <property name="targetMethod" value="fetch"/>
+        <property name="concurrent" value="true"/>
+    </bean>
+     
+</beans>
