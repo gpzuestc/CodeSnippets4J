@@ -417,6 +417,7 @@ public class JedisTest {
 		jpc.setMaxWait(5 * 1000);
 		
 		List<String> hostList = new ArrayList<String>();
+		hostList.add("10.10.77.156");
 		hostList.add("10.10.76.126");
 		hostList.add("10.16.12.94");
 		hostList.add("10.10.76.154");
@@ -428,6 +429,9 @@ public class JedisTest {
 			
 			j = jp.getResource();
 //			j.del("find_album_playcount_by_playlist_id_6494271");
+			for(int i = 1; i <= 399; i++){
+				System.out.println(j.del("video4.albumEntity_" + i));
+			}
 			System.out.println(j.del("video4.tvVerRelation.findAllByTvIdAndVersionId_1206424_1"));
 //			System.out.println(HessianSerializeUtil.decode(bArr)));
 			jp.returnResource(j);

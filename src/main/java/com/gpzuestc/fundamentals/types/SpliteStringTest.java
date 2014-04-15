@@ -105,6 +105,17 @@ public class SpliteStringTest {
 			System.out.println("str2: " + s);
 		}
 	}
+	
+	@Test
+	public void testSplitBlank(){
+//		String str = "1234 1";
+//		String str = "1234  1";
+		String str = "1234  	1";
+		String[] arr = str.split("\\s+");
+		for(int i = 0; i < arr.length;  i++){
+			System.out.println("b" + arr[i] + "e");
+		}
+	}
 }
 
 

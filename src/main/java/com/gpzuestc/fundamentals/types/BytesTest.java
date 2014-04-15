@@ -39,4 +39,49 @@ public class BytesTest {
 		System.out.println(new BigInteger(bytes));
 		
 	}
+	
+	@Test
+	public void testBitOp(){
+		System.out.println(0111 & 0101);
+		Integer i = 65;
+		System.out.println(Integer.toBinaryString(4));
+	}
+	
+	@Test
+	public void testPermControl(){
+		int query = 0;
+		int create = 1;
+		int delete = 2;
+		
+		Integer perm = 0;
+		
+		//set create perm
+		perm = setPerm(create, perm);
+		boolean hasPerm = hasPerm(create, perm);
+		System.out.println(hasPerm);
+		
+		hasPerm = hasPerm(query, perm);
+		System.out.println(hasPerm);
+		
+		perm = setPerm(query, perm);
+		hasPerm = hasPerm(query, perm);
+		System.out.println(hasPerm);
+		
+//		perm = setPerm(delete, perm);
+		hasPerm = hasPerm(delete, perm);
+		System.out.println(hasPerm);
+		
+	}
+
+	private Integer setPerm(int opPerm, Integer perm) {
+		int temp = 1 << opPerm;
+		perm = perm | temp;
+		return perm;
+	}
+	
+	private boolean hasPerm(int opPerm, Integer perm){
+		System.out.println(Integer.toBinaryString(perm));
+		return (perm >> opPerm & 1) == 1 ? true : false;
+	}
+	
 }
