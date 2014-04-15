@@ -74,9 +74,7 @@ public class BytesTest {
 	}
 
 	private Integer setPerm(int opPerm, Integer perm) {
-		int temp = 1 << opPerm;
-		perm = perm | temp;
-		return perm;
+		return perm | 1 << opPerm;
 	}
 	
 	private boolean hasPerm(int opPerm, Integer perm){
