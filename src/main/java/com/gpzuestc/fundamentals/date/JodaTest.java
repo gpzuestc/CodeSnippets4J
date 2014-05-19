@@ -36,16 +36,40 @@ public class JodaTest {
         System.out.println();
     }
 
-    @Test
-    public void test(){
-        System.out.println();
-        System.out.println("yss");
-        System.out.println();
-        String test = "";
-    }
 
-    public void test1(){
-        System.out.println();
+    @Test
+    public void testBetween(){
+    	DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
+		DateTime now = new DateTime();
+		DateTime end = DateTime.parse("2014-06-02", dtf);
+		DateTime current = now;
+		while(current.isBefore(end.getMillis())){
+			System.out.println(current.toString(dtf));
+			current = current.plusDays(1);
+		}
+    }
+    
+    @Test
+    public void testNext(){
+    	DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+		countNext(DateTime.parse("2014-06-02 15:00", dtf));
+		countNext(DateTime.parse("2014-06-02 15:01", dtf));
+		countNext(DateTime.parse("2014-06-02 15:21", dtf));
+		countNext(DateTime.parse("2014-06-02 15:31", dtf));
+		countNext(DateTime.parse("2014-06-02 15:51", dtf));
+    }
+    
+    private void countNext(DateTime now){
+    	DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+
+		DateTime next = now.plusHours(1);
+		long circle = 15 * 60 * 1000;
+		long div = next.getMillis() / circle;
+		long mod = next.getMillis() % circle;
+		
+		long count = (mod == 0) ? div : div + 1;
+		DateTime nextDate = new DateTime(count * circle);
+		System.out.println(nextDate.toString(dtf));
     }
 
 }

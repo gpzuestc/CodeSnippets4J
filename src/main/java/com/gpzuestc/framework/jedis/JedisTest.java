@@ -467,22 +467,23 @@ public class JedisTest {
 		jpc.setMaxWait(5 * 1000);
 		
 		List<String> hostList = new ArrayList<String>();
-		hostList.add("10.10.52.184");
-		hostList.add("10.10.53.56");
-		hostList.add("10.16.15.136");
-		hostList.add("10.10.76.122");
-		hostList.add("10.16.15.129");
+//		hostList.add("10.10.52.184");
+//		hostList.add("10.10.53.56");
+//		hostList.add("10.16.15.136");
+//		hostList.add("10.10.76.122");
+//		hostList.add("10.16.15.129");
 //		hostList.add("10.11.52.194");
+		hostList.add("10.10.52.163");
 		
 		List<Long> vids = new ArrayList<Long>();
 //		vids.add(1629779L);
 //		vids.add(1629663L);
-		vids.add(1631679L);
+		vids.add(8374L);
 		
 		List<Long> tvIds = new ArrayList<Long>();
 //		tvIds.add(1166855L);
 //		tvIds.add(1166808L);
-		tvIds.add(1168381L);
+		tvIds.add(4176L);
 		
 		int port = 6388;
 		for(String host : hostList){
@@ -525,6 +526,5 @@ public class JedisTest {
 			}
 		}
 	}
-
 	
 }

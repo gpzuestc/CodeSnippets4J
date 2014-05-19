@@ -1,5 +1,7 @@
 package com.gpzuestc.fundamentals.types;
 
+import java.util.StringTokenizer;
+
 import org.junit.Test;
 
 /**
@@ -114,6 +116,18 @@ public class SpliteStringTest {
 		String[] arr = str.split("\\s+");
 		for(int i = 0; i < arr.length;  i++){
 			System.out.println("b" + arr[i] + "e");
+		}
+	}
+	
+	@Test
+	public void testTokenizer(){
+		String str = "1,2,3,4";
+		StringTokenizer tokenizer = new StringTokenizer(str, ",");
+//		while(tokenizer.hasMoreTokens()){
+//			System.out.println(tokenizer.nextToken());
+//		}
+		while(tokenizer.hasMoreElements()){
+			System.out.println(tokenizer.nextElement());
 		}
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -86,6 +87,13 @@ public class MapTest {
 			String id = values.get(i).toString();
 			System.out.println(id);
 		}
+	}
+	
+	@Test
+	public void testLinkedHashMap(){
+		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+		String str  = "abcdefg";
+		str.indexOf("e");
 	}
 }
 

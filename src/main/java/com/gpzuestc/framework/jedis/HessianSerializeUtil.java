@@ -5,6 +5,8 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
+
 import com.caucho.hessian.io.Hessian2Input;
 import com.caucho.hessian.io.Hessian2Output;
 import com.gpzuestc.User;
@@ -83,4 +85,10 @@ public class HessianSerializeUtil {
 		byte[] la = encode(larr);
 		System.out.println(la.length);
 	}
+    
+    @Test
+    public void testString(){
+    	String str = "{\"abc\":啦啦啦}";
+    	System.out.println(new String(encode(str)));
+    }
 }
