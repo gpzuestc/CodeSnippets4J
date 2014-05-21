@@ -69,7 +69,6 @@ public class CollectionsTest {
 
 			@Override
 			public int compare(String o1, String o2) {
-				// TODO Auto-generated method stub
 				return 0;
 			}
 			
@@ -135,13 +134,12 @@ public class CollectionsTest {
 //					try {
 //						Thread.sleep(200);
 //					} catch (InterruptedException e) {
-//						// TODO Auto-generated catch block
 //						e.printStackTrace();
 //					}
 				}
 			}
 		}).start();
-		
+						
 		
 		
 		new Thread(new Runnable() {
@@ -171,5 +169,17 @@ public class CollectionsTest {
 				}
 			}
 		}).start();
+	}
+	
+	
+	@Test
+	public void testSetAndListTrans(){
+		List<String> list = new ArrayList<String>();
+		list.add("abc");
+		list.add("abc");
+		Set<String> set = new HashSet<String>(list);
+		System.out.println(set.size());
+		list = new ArrayList<String>(set);
+		System.out.println(list.size());
 	}
 }

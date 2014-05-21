@@ -1,6 +1,8 @@
 package com.gpzuestc.fundamentals.collections;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
@@ -26,5 +28,6 @@ public class SetTest {
 		strSet.add(new String("abc"));
 		strSet.add(new String("abc"));
 		System.out.println(strSet.size()); //2 use ref compare
+		
 	}
 }
