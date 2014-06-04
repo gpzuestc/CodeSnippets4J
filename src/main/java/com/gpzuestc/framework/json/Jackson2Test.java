@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -39,6 +40,7 @@ public class Jackson2Test {
 	static {
 		m.setSerializationInclusion(Include.NON_EMPTY);
 		m.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+		m.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //ignore unknown property
 	}
 
 	@Test
