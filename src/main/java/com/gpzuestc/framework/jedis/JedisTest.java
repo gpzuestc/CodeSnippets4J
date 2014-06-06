@@ -118,6 +118,7 @@ public class JedisTest {
 		jpc.setMaxActive(8);
 	    jpc.setMaxIdle(5);
 	    jpc.setMaxWait(1000 * 10); //等待idle object的最大时间
+//	    jpc.setTestOnBorrow(true);
 		ShardedJedisPool sjp = new ShardedJedisPool(jpc, shards);
 		int i = 0;
 		ShardedJedis sj = null;

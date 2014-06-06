@@ -121,6 +121,7 @@ public class StringTest {
 	
 	@Test
 	public void testNull(){
+		System.out.println(null + "123");  //null123
 		System.out.println(String.valueOf(null)); //NullPointerException
 	}
 	
