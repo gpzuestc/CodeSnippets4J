@@ -3,7 +3,6 @@ package com.gpzuestc;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * Description:  
@@ -11,7 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  * @date: Mar 23, 2012
  * 
  */
-public class User implements Cloneable, Serializable{
+public class User implements Cloneable, Serializable, Comparable<User>{
 	/**
 	 * 
 	 */
@@ -130,5 +129,10 @@ public class User implements Cloneable, Serializable{
 
 	public void setDNA(String dNA) {
 		DNA = dNA;
+	}
+
+	@Override
+	public int compareTo(User o) {
+		return this.name.compareTo(o.getName());
 	}
 }
