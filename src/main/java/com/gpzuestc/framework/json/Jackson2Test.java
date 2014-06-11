@@ -284,4 +284,32 @@ public class Jackson2Test {
 //		System.out.println(obj.toString());
 	}
 	
+	@Test
+	public void testConcurrentDeser() throws JsonProcessingException, IOException{
+		final ObjectReader objectReader = m.reader(User.class);
+		for(int i = 0; i < 50; i++){
+			final int a = i;
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					User user;
+					try {
+						String includeStr = "{\"name\":\"sdfsdfsf\",\"age\":" + a + ",\"group\":{\"name\":\"g1\",\"id\":100}}";
+						user = objectReader.readValue(includeStr);
+						System.out.println(Thread.currentThread().getName() + ";" + user.getAge());
+					} catch (JsonProcessingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+			}).start();
+		}
+	}
+	
 }
