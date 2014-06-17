@@ -246,7 +246,9 @@ c19:null
 			String addr = host + ":11211";
 			MemcachedClientBuilder builder = new XMemcachedClientBuilder(AddrUtil.getAddresses(addr));
 			MemcachedClient c = builder.build();
-			String key = String.format("video_by_vid_aid_site_plat_%s_%s_%s_%s", 1648437, 0, 1, 17);
+//			String key = String.format("video_by_vid_aid_site_plat_%s_%s_%s_%s", 1648437, 0, 1, 17);
+			String key = String.format("video_by_vid_aid_site_plat_%s_%s_%s_%s", 1823474, null, 1, 17);
+			
 			System.out.println(key);
 			System.out.println(c.delete(key));
 		}

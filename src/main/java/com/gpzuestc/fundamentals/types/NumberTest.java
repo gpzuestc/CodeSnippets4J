@@ -24,4 +24,20 @@ public class NumberTest {
 		System.out.println("long:" + a.longValue());
 		System.out.println("int:" + a.intValue());
 	}
+	
+	@Test
+	public void testTrans() {
+		long abc = 0xffffffffL;
+		System.out.println(abc);
+		System.out.println(Long.parseLong("ffffffff", 16));
+		System.out.println(Integer.parseInt("ff", 16));
+
+		Integer a = 127;
+		Integer b = 127;
+		Integer c = new Integer(127);
+		Integer d = new Integer(127);
+		System.out.println(a == b);
+		System.out.println(b == c);
+		System.out.println(c == d);
+	}
 }
