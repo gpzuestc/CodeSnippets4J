@@ -52,6 +52,7 @@ public class JodaTest {
     @Test
     public void testNext(){
     	DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+    	countNext(DateTime.parse("2014-06-02 12:46", dtf));
 		countNext(DateTime.parse("2014-06-02 15:00", dtf));
 		countNext(DateTime.parse("2014-06-02 15:01", dtf));
 		countNext(DateTime.parse("2014-06-02 15:21", dtf));
@@ -62,7 +63,7 @@ public class JodaTest {
     private void countNext(DateTime now){
     	DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
 
-		DateTime next = now.plusHours(1);
+		DateTime next = now.plusHours(1).plusMinutes(5);
 		long circle = 15 * 60 * 1000;
 		long div = next.getMillis() / circle;
 		long mod = next.getMillis() % circle;
