@@ -15,7 +15,7 @@
 	<context:component-scan base-package="com.gpzuestc.framework.spring"></context:component-scan>  
     <context:annotation-config /> 
 	<bean id="springBeanLifecircle"
-          class="com.gpzuestc.framework.spring.SpringBeanLifecycle" init-method="initMethod" destroy-method="destroyMethod">
+          class="com.gpzuestc.framework.spring.lifecircle.SpringBeanLifecycle" init-method="initMethod" destroy-method="destroyMethod">
           <property name="foo" value="xyz"></property>
      </bean>
      

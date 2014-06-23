@@ -1,4 +1,4 @@
-package com.gpzuestc.framework.spring;
+package com.gpzuestc.framework.spring.lifecircle;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
