@@ -61,7 +61,7 @@ public class SpringBeanLifecycle implements BeanFactoryAware, BeanNameAware,
 		
 		--custom code: applicationContext=org.springframework.context.support.ClassPathXmlApplicationContext@21551f60: startup date [Mon Jun 23 23:18:31 CST 2014]; root of context hierarchy
 		
-		--preDestroy method of @@PreDestroy
+		--preDestroy method of @PreDestroy
 		--destroy-method of DisposableBean interface
 		--destroy-method of xml conf
 		**/
@@ -105,7 +105,7 @@ public class SpringBeanLifecycle implements BeanFactoryAware, BeanNameAware,
 	
 	@PreDestroy
 	public void preDestroy(){
-		System.out.println("--preDestroy method of @@PreDestroy");
+		System.out.println("--preDestroy method of @PreDestroy");
 	}
 
 	public String getFoo() {
