@@ -40,4 +40,24 @@ public class LongTest {
 		System.out.println(a.equals(b)); //true;
 		System.out.println(a == b);  //true;
 	}
+	
+	@Test
+	public void test_long(){
+		long number1 = 1403750900 * 1000;  //溢出啦！
+		System.out.println(number1); 
+		
+		long number2 = 1403750900 * 1000L; // 想要的结果，但L会被遗漏
+		System.out.println(number2);
+		
+		Long number3 = 1403750900 * 1000L;  //如果不明确指定L,会提示错误
+		System.out.println(number3);
+		
+		/**
+		-703405792
+		1403750900000
+		1403750900000
+		
+		如果定义参数long的方法，则很容易误传这样的值！！
+		**/
+	}
 }

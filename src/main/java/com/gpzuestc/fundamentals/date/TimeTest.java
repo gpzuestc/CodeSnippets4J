@@ -22,8 +22,15 @@ public class TimeTest {
 		System.out.println(System.currentTimeMillis());
 		System.out.println(new Date());
 		System.out.println(DateFormatUtils.ISO_DATE_FORMAT.format(new Date()));
+		
+		//unix timestamp to commnon date
+		System.out.println(DateFormatUtils.ISO_DATETIME_FORMAT.format(1403750900 * 1000L));
+//		System.out.println(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date(time)));
+		
+		//attention: it will throw NullPointerException
 		Date date = null;
 		System.out.println(DateFormatUtils.ISO_DATE_FORMAT.format(date));
+		
 	}
 	
 	@Test

@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.transform.ResultTransformer;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateCallback;
@@ -73,6 +72,7 @@ public class PlayerDAOImpl implements PlayerDAO{
 	public List<PlayerBO> listPlayerBOByTeamId(final Long teamId) {
 		List<PlayerBO> players = (List<PlayerBO>)localHibernateTemplate.execute(new HibernateCallback<List<PlayerBO>>() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public List<PlayerBO> doInHibernate(Session session)
 					throws HibernateException {
