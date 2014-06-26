@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.gpzuestc.framework.hibernate.dao.PlayerDAO;
+import com.gpzuestc.util.ClassUtils;
 
 /**
  * @author gpzuestc
@@ -19,7 +20,8 @@ public class HibernateDemo {
 	
 	@BeforeClass
 	public static void before(){
-		context = new ClassPathXmlApplicationContext(new String[] { "/com/gpzuestc/framework/hibernate/applicationContext.xml" });
+//		context = new ClassPathXmlApplicationContext(new String[] { "/com/gpzuestc/framework/hibernate/applicationContext.xml" });
+		context = new ClassPathXmlApplicationContext(ClassUtils.getPackagePathOfClass(HibernateDemo.class) + "/applicationContext.xml");
 		playerDAO = (PlayerDAO)context.getBean("playerDAO");
 	}
 	

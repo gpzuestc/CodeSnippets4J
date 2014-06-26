@@ -13,6 +13,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.gpzuestc.util.ClassUtils;
+
 /**
  * @author gpzuestc
  * @date: 2014-6-23
@@ -30,10 +32,11 @@ public class SpringBeanLifecycle implements BeanFactoryAware, BeanNameAware,
 
 	public static void main(String[] args) {
 //		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-beans.xml");
-		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("/com/gpzuestc/framework/spring/lifecircle/spring-beans.xml");
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(ClassUtils.getPackagePathOfClass(SpringBeanLifecycle.class) + "/spring-beans.xml");
 		System.out.println("--custom code: applicationContext=" + ctx);
 		ctx.close();
 		
+		System.out.println();
 		/**
 		<--- begin SpringBeanFactoryPostProcessor
 		definition bean name:springBeanFactoryPostProcessor
