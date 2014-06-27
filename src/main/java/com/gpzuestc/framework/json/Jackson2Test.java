@@ -2,7 +2,9 @@ package com.gpzuestc.framework.json;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -149,6 +151,7 @@ public class Jackson2Test {
 			JSONArray.fromObject(list).toString();
 		}
 		System.out.println("json-lib serialize:" + (System.currentTimeMillis() - start));
+		System.out.println();
 
 		/**********************************************/
 		
@@ -161,7 +164,7 @@ public class Jackson2Test {
 		
 		start = System.currentTimeMillis();
 		for(int i = 0; i < count; i++){
-			JSON.parse(str);
+			JSON.parseArray(str);
 		}
 		System.out.println("fast-json deserialize:" + (System.currentTimeMillis() - start));
 		
@@ -171,6 +174,35 @@ public class Jackson2Test {
 			JSONArray.fromObject(str);
 		}
 		System.out.println("json-lib deSerialize:" + (System.currentTimeMillis() - start));
+		
+		System.out.println();
+		
+		/**********************************************/
+		
+		String objStr = "{\"name\":\"sdfsdfsf\",\"age\":24,\"group\":{\"name\":\"g1\",\"id\":100}}";
+		start = System.currentTimeMillis();
+		ObjectReader reader = m.reader(User.class);
+		for(int i = 0; i < count; i++){
+			reader.readValue(objStr);
+		}
+		System.out.println("jackson to bean:" + (System.currentTimeMillis() - start));
+		
+		start = System.currentTimeMillis();
+		for(int i = 0; i < count; i++){
+			JSON.parseObject(objStr, User.class);
+		}
+		System.out.println("fast-json to bean:" + (System.currentTimeMillis() - start));
+		
+		
+		start = System.currentTimeMillis();
+		Map<String, Class> map = new HashMap<String, Class>();
+		map.put("group",Group.class);
+		for(int i = 0; i < count; i++){
+			JSONObject.toBean(JSONObject.fromObject(objStr), User.class, map);
+		}
+		System.out.println("json-lib to bean:" + (System.currentTimeMillis() - start));
+		
+		System.out.println();
 	}
 	
 	
@@ -312,4 +344,7 @@ public class Jackson2Test {
 		}
 	}
 	
+	
+//	@Test
+//	public void
 }
