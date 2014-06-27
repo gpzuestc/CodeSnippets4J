@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.HibernateTemplate;
@@ -49,7 +52,7 @@ public class PlayerDAOImpl implements PlayerDAO{
 	}
 
 	@Override
-	public PlayerBO getPlayBO(final Long id) {
+	public PlayerBO getPlayerBO(final Long id) {
 		PlayerBO player = (PlayerBO)localHibernateTemplate.execute(new HibernateCallback<PlayerBO>() {
 
 			@Override
@@ -58,8 +61,31 @@ public class PlayerDAOImpl implements PlayerDAO{
 				String idName = "id";
 //				String hql = "select p.id, p.name, p.teamId, t.name as teamName from Player p, Team t where p.teamId=t.id and p.id=:" + idName;
 				//as语句是必须的
+				
 				String hql = "select p.id as id, p.name as name, p.teamId as teamId, t.name as teamName from Player p, Team t where p.teamId=t.id and p.id=:" + idName;
 				Query query = session.createQuery(hql);
+				
+				query.setLong(idName, id);
+				query.setResultTransformer(Transformers.aliasToBean(PlayerBO.class));
+				return (PlayerBO)query.uniqueResult();
+			}
+		});
+		return player;
+	}
+	
+	@Override
+	public PlayerBO getPlayerBOBySqlQuery(final Long id) {
+		PlayerBO player = (PlayerBO)localHibernateTemplate.execute(new HibernateCallback<PlayerBO>() {
+
+			@Override
+			public PlayerBO doInHibernate(Session session)
+					throws HibernateException {
+				String idName = "id";
+				String sql = "select p.id as id, p.name as name, p.teamId as teamId, t.name as teamName from player p, team t where p.teamId=t.id and p.id=:" + idName;
+				SQLQuery query = session.createSQLQuery(sql);
+				//注意所有需要的属性都要添加scalar
+				query.addScalar("id", LongType.INSTANCE).addScalar("name", StringType.INSTANCE).addScalar("teamId", LongType.INSTANCE).addScalar("teamName", StringType.INSTANCE);
+				
 				query.setLong(idName, id);
 				query.setResultTransformer(Transformers.aliasToBean(PlayerBO.class));
 				return (PlayerBO)query.uniqueResult();

@@ -14,7 +14,9 @@ import com.gpzuestc.framework.hibernate.entity.PlayerBO;
 public interface PlayerDAO {
 	Player get(Long id);
 	
-	PlayerBO getPlayBO(Long id);
+	PlayerBO getPlayerBO(Long id);
+	
+	PlayerBO getPlayerBOBySqlQuery(Long id);
 	
 	List<Player> listByTeamId(Long teamId);
 	

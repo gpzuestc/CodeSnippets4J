@@ -37,7 +37,12 @@ public class HibernateDemo {
 	
 	@Test
 	public void testGetBO(){
-		System.out.println(playerDAO.getPlayBO(1L).getTeamName());
+		System.out.println(playerDAO.getPlayerBO(1L).getTeamName());
+	}
+	
+	@Test
+	public void testGetBOBySqlQuery(){
+		System.out.println(playerDAO.getPlayerBOBySqlQuery(1L).getTeamName());
 	}
 	
 	@Test
