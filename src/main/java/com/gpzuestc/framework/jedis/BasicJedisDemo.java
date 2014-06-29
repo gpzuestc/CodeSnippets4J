@@ -12,6 +12,9 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
+import redis.clients.jedis.Pipeline;
+import redis.clients.jedis.PipelineBlock;
+import redis.clients.jedis.Response;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
@@ -198,5 +201,28 @@ public class BasicJedisDemo {
 		}
 	}
 
+	@Test
+	public void testPipline(){
+		String host = "127.0.0.1";
+		Integer port = 6379;
+		JedisPool jp = new JedisPool(host, port);
+		
+		Jedis j = jp.getResource();
+		try {
+			Pipeline pip = j.pipelined();
+			pip.setex("aa", 60, "aa1");
+			pip.setex("bb", 60, "bb2");
+//			pip.sync();
+			List<Object> result = pip.syncAndReturnAll();
+			for(Object obj : result){
+				System.out.println(obj);
+			}
+			jp.returnResource(j);
+		} catch (Exception e) {
+			e.printStackTrace();
+			jp.returnBrokenResource(j);
+		}
+		
+	}
 	
 }

@@ -7,7 +7,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jedis.version>2.1.0</jedis.version>
+		<jedis.version>2.2.0</jedis.version>
+<!-- 		<jedis.version>2.5.1</jedis.version> -->
 <!-- 		<spring.version>3.2.3.RELEASE</spring.version> -->
 		<spring.version>4.0.5.RELEASE</spring.version>
 	</properties>
