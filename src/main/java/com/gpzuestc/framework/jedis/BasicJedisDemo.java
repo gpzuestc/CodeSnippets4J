@@ -11,6 +11,7 @@ import org.junit.Test;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.JedisPubSub;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.PipelineBlock;
@@ -224,5 +225,144 @@ public class BasicJedisDemo {
 		}
 		
 	}
+	
+	/*
+	127.0.0.1:6379> PUBLISH hi "can you see me"
+	
+	onSubscribe
+	onMessage
+	channel:hi
+	message:can you see me
+	*/
+	@Test
+	public void testPubSub(){
+		String host = "127.0.0.1";
+		Integer port = 6379;
+		JedisPool jp = new JedisPool(host, port);
+		
+		Jedis j = jp.getResource();
+		try {
+			j.subscribe(new JedisPubSub() {
+				
+				@Override
+				public void onUnsubscribe(String channel, int subscribedChannels) {
+					// TODO Auto-generated method stub
+					System.out.println("onUnsub");
+				}
+				
+				@Override
+				public void onSubscribe(String channel, int subscribedChannels) {
+					// TODO Auto-generated method stub
+					System.out.println("onSubscribe");
+				}
+				
+				@Override
+				public void onPUnsubscribe(String pattern, int subscribedChannels) {
+					// TODO Auto-generated method stub
+					System.out.println("onPUnsubscribe");
+				}
+				
+				@Override
+				public void onPSubscribe(String pattern, int subscribedChannels) {
+					// TODO Auto-generated method stub
+					System.out.println("onPSubscribe");
+				}
+				
+				@Override
+				public void onPMessage(String pattern, String channel, String message) {
+					// TODO Auto-generated method stub
+					System.out.println("onPMessage");
+					System.out.println("channel:" + channel);
+					System.out.println("message:" + message);
+				}
+				
+				@Override
+				public void onMessage(String channel, String message) {
+					System.out.println("onMessage");
+					System.out.println("channel:" + channel);
+					System.out.println("message:" + message);
+					
+				}
+			}, new String[]{"hi"});
+			
+			jp.returnResource(j);
+		} catch (Exception e) {
+			e.printStackTrace();
+			jp.returnBrokenResource(j);
+		}
+		
+	}
+	/*
+	127.0.0.1:6379> PUBLISH hi_2 "can you see me"
+	127.0.0.1:6379> PUBLISH hi_ "can you see me"
+	
+	onPSubscribe
+	onPMessage
+	channel:hi_2
+	message:can you see me
+	onPMessage
+	channel:hi_
+	message:can you see me
+	*/
+	
+	@Test
+	public void testPatternPubSub(){
+		String host = "127.0.0.1";
+		Integer port = 6379;
+		JedisPool jp = new JedisPool(host, port);
+		
+		Jedis j = jp.getResource();
+		try {
+			j.psubscribe(new JedisPubSub() {
+				
+				@Override
+				public void onUnsubscribe(String channel, int subscribedChannels) {
+					// TODO Auto-generated method stub
+					System.out.println("onUnsub");
+				}
+				
+				@Override
+				public void onSubscribe(String channel, int subscribedChannels) {
+					// TODO Auto-generated method stub
+					System.out.println("onSubscribe");
+				}
+				
+				@Override
+				public void onPUnsubscribe(String pattern, int subscribedChannels) {
+					// TODO Auto-generated method stub
+					System.out.println("onPUnsubscribe");
+				}
+				
+				@Override
+				public void onPSubscribe(String pattern, int subscribedChannels) {
+					// TODO Auto-generated method stub
+					System.out.println("onPSubscribe");
+				}
+				
+				@Override
+				public void onPMessage(String pattern, String channel, String message) {
+					// TODO Auto-generated method stub
+					System.out.println("onPMessage");
+					System.out.println("channel:" + channel);
+					System.out.println("message:" + message);
+				}
+				
+				@Override
+				public void onMessage(String channel, String message) {
+					System.out.println("onMessage");
+					System.out.println("channel:" + channel);
+					System.out.println("message:" + message);
+					
+				}
+			}, new String[]{"hi_*"});
+			
+			jp.returnResource(j);
+		} catch (Exception e) {
+			e.printStackTrace();
+			jp.returnBrokenResource(j);
+		}
+		
+	}
+	
 	
 }
