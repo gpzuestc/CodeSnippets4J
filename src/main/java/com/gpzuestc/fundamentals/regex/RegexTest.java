@@ -222,6 +222,15 @@ public class RegexTest {
 		}
 	}
 	
+	@Test
+	public void testNumber(){
+		String str = "a1";
+		Pattern p = Pattern.compile("[\\d]+");
+		Matcher m = p.matcher(str);
+		System.out.println(m.find());
+		System.out.println(m.matches());
+	}
+	
 }
 
 

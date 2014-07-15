@@ -1,11 +1,9 @@
 package com.gpzuestc.framework.jedis;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import redis.clients.jedis.Jedis;
@@ -14,8 +12,6 @@ import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisPubSub;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.Pipeline;
-import redis.clients.jedis.PipelineBlock;
-import redis.clients.jedis.Response;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
