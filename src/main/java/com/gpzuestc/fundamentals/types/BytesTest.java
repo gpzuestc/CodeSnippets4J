@@ -43,9 +43,13 @@ public class BytesTest {
 
 	@Test
 	public void testBitOp() {
-		System.out.println(0111 & 0101);
+		System.out.println(0111 & 0101); //8进制
 		Integer i = 65;
-		System.out.println(Integer.toBinaryString(4));
+		System.out.println(Integer.toBinaryString(i));
+		
+
+		System.out.println(010); //8
+		System.out.println(0x10); //16
 	}
 
 	@Test
@@ -93,6 +97,7 @@ public class BytesTest {
 		System.out.println(x);
 		System.out.println(i & x);
 		System.out.println(Integer.toBinaryString(i & x));
+		
 	}
 
 }
