@@ -89,9 +89,10 @@ public class BytesTest {
 		Integer i = 149;
 		System.out.println(Integer.toBinaryString(i));
 		
-		System.out.println(i & 0x7);
-		System.out.println(i & 7);
-		System.out.println(Integer.toBinaryString(i & 7));
+		int x = Integer.valueOf("11111", 2);
+		System.out.println(x);
+		System.out.println(i & x);
+		System.out.println(Integer.toBinaryString(i & x));
 	}
 
 }
