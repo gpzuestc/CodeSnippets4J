@@ -82,5 +82,16 @@ public class BytesTest {
 		System.out.println(Integer.toBinaryString(perm));
 		return (perm >> opPerm & 1) == 1 ? true : false;
 	}
+	
+	
+	@Test
+	public void testBit(){
+		Integer i = 149;
+		System.out.println(Integer.toBinaryString(i));
+		
+		System.out.println(i & 0x7);
+		System.out.println(i & 7);
+		System.out.println(Integer.toBinaryString(i & 7));
+	}
 
 }
