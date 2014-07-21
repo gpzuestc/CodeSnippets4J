@@ -1,6 +1,8 @@
 package com.gpzuestc.framework.jedis;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
@@ -360,5 +362,54 @@ public class BasicJedisDemo {
 		
 	}
 	
-	
+	public static void main(String[] args) {
+//	@Test
+//	public void test() throws Exception{
+		
+		String host = "10.10.82.80";
+		int port = 6300;
+		
+		//data 
+		StringBuilder sb = new StringBuilder();
+		int dataLen = 500;
+		for(int i = 0; i < dataLen; i++){
+			sb.append("123456789a");
+		}
+		final String data = sb.toString();
+		
+//		int concurrentCount = 5;
+//		int queryCount = 50000;
+		int activeCount = 256;
+		JedisPoolConfig jpc = new JedisPoolConfig();
+		jpc.setMaxActive(activeCount);
+	    jpc.setMaxIdle(activeCount);
+	    jpc.setMaxWait(1000);
+		final JedisPool jp = new JedisPool(jpc, host, port, 5000); //2000 may be too small;
+		final SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm:ss");
+		for(int k = 0; k < 3; k++){
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					for(long i = 0;;i++){
+						String key = Thread.currentThread().getName() + "a" + i;
+						try {
+							System.out.println("[" + sdf.format(new Date(System.currentTimeMillis())) + "] " + key);
+							Jedis j = jp.getResource();
+							j.set(key, data);
+//							j.get(key);
+							jp.returnResource(j);
+						} catch (Exception e) {
+//				System.err.println(key);
+							e.printStackTrace();
+							jp.returnBrokenResource(j);
+						}
+					}
+						
+				}
+			}).start();;
+		}
+		
+	}
 }
