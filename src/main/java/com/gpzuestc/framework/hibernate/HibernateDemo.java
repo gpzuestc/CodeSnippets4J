@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.gpzuestc.framework.hibernate.dao.PlayerDAO;
+import com.gpzuestc.framework.hibernate.entity.Player;
 import com.gpzuestc.util.ClassUtils;
 
 /**
@@ -27,7 +28,13 @@ public class HibernateDemo {
 	
 	@Test
 	public void testGetEntity(){
-		System.out.println(playerDAO.get(1L).getName());
+		Player player = playerDAO.get(1L);
+		System.out.println(player.getName());
+		player.setName("Pirlo1");
+		System.out.println(player.getName());
+		
+		player = playerDAO.get(1L);
+		System.out.println(player.getName());
 	}
 	
 	@Test

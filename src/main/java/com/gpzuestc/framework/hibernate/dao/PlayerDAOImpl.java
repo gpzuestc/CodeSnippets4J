@@ -2,6 +2,7 @@ package com.gpzuestc.framework.hibernate.dao;
 
 import java.util.List;
 
+import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -12,6 +13,7 @@ import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.HibernateTemplate;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.stereotype.Component;
 
 import com.gpzuestc.framework.hibernate.entity.Player;
@@ -29,8 +31,19 @@ public class PlayerDAOImpl implements PlayerDAO{
 	@Autowired
 	private HibernateTemplate localHibernateTemplate;
 	
+	@Autowired
+	private LocalSessionFactoryBean localSessionFactory;
+	
 	public Player get(Long id){
 		return localHibernateTemplate.get(Player.class, id);
+//		Session session = localSessionFactory.getObject().openSession();
+//		session.setFlushMode(FlushMode.AUTO);
+//		Player p = (Player)session.get(Player.class, id);
+//		p.setName("Pirlo2");
+//		return p;
+		
+		
+//		return (Player)localSessionFactory.getObject().getCurrentSession().get(Player.class, id);
 	}
 
 	@Override
