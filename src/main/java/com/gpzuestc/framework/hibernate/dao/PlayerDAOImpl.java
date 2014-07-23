@@ -15,6 +15,7 @@ import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gpzuestc.framework.hibernate.entity.Player;
 import com.gpzuestc.framework.hibernate.entity.PlayerBO;
@@ -34,14 +35,18 @@ public class PlayerDAOImpl implements PlayerDAO{
 	@Autowired
 	private LocalSessionFactoryBean localSessionFactory;
 	
+	@Transactional  //用currentSession必须要用transaction的注解
 	public Player get(Long id){
-		return localHibernateTemplate.get(Player.class, id);
-//		Session session = localSessionFactory.getObject().openSession();
-//		session.setFlushMode(FlushMode.AUTO);
-//		Player p = (Player)session.get(Player.class, id);
-//		p.setName("Pirlo2");
-//		return p;
+//		return localHibernateTemplate.get(Player.class, id);
 		
+		Session session = localSessionFactory.getObject().getCurrentSession();
+		session.setFlushMode(FlushMode.AUTO);
+//		session.setFlushMode(FlushMode.MANUAL); //manual 不会主动update
+		Player p = (Player)session.get(Player.class, id);
+		System.out.println("in db:" + p.getName());
+		p.setName("Pirlo");
+		return p;
+//		
 		
 //		return (Player)localSessionFactory.getObject().getCurrentSession().get(Player.class, id);
 	}
