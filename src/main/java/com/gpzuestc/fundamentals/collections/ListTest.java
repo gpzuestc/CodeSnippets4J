@@ -2,6 +2,7 @@ package com.gpzuestc.fundamentals.collections;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -255,5 +256,81 @@ public class ListTest {
 		}
 		
 		System.out.println(list.size());
+	}
+	
+	@Test
+	public void testArray2List(){
+		Integer[] cArr = new Integer[]{2,3,4};
+		List<Integer> cList = Arrays.asList(cArr);
+		
+		List<Integer> dList = new ArrayList<Integer>();
+		dList.add(4);
+		dList.add(5);
+		System.out.println(dList.addAll(cList));
+		System.out.println(dList);
+		
+		Integer[] aArr = new Integer[]{1,2,3,4,5,6,7};
+		List<Integer> aList = Arrays.asList(aArr);
+		System.out.println(aList.addAll(cList));   //报错：java.lang.UnsupportedOperationException
+		
+	}
+	
+	@Test
+	public void testOperation(){
+		Integer[] bArr = new Integer[]{1,2};
+		List<Integer> bList = Arrays.asList(bArr);
+		Integer[] cArr = new Integer[]{2,3,4};
+		List<Integer> cList = Arrays.asList(cArr);
+		
+		System.out.println(union(bList, cList));
+		System.out.println(intersection(bList, cList));
+		System.out.println(diff(bList, cList));
+		
+	}
+	
+	// 并集
+	public <T> List<T> union(List<T> list1, List<T> list2) {
+		List<T> list = new ArrayList<T>();
+		list.addAll(list1);
+		list.addAll(list2);
+		HashSet<T> hs = new HashSet<T>(list);
+		list.clear();
+		list.addAll(hs);
+		return list;
+	}
+
+	// 交集
+	public <T> List<T> intersection(List<T> list1, List<T> list2) {
+		List<T> list = new ArrayList<T>();
+		list.addAll(list1);
+		list.retainAll(list2);
+		return list;
+	}
+
+	// 差集
+	public <T> List<T> diff(List<T> list1, List<T> list2) {
+		List<T> list = new ArrayList<T>();
+		list.addAll(list1);
+		list.removeAll(intersection(list1, list2));
+		return list;
+	}
+	
+	@Test
+	public void testRemoveAll(){
+		List<Integer> aList = new ArrayList<Integer>();
+		aList.add(1);
+		aList.add(2);
+		aList.add(3);
+		aList.add(4);
+		aList.add(5);
+		List<Integer> bList = new ArrayList<Integer>();
+		bList.add(2);
+		List<Integer> cList = new ArrayList<Integer>();
+		cList.add(3);
+		
+		System.out.println(aList.removeAll(bList));
+		System.out.println(aList.removeAll(cList));
+		System.out.println(aList);
+		
 	}
 }
