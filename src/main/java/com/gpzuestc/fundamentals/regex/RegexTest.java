@@ -47,12 +47,12 @@ public class RegexTest {
 	}
 	
 	@Test
-	public void test() {
+	public void testGetUrl() {
 //		String rexStr = "href=\"(.+?)\""; 
 //		String rexStr = "href=\"(.+)\""; 
 		String rexStr = "href=\"(.*)\""; 
 		Pattern pattern = Pattern.compile(rexStr);
-		Matcher matcher = pattern.matcher("��a href=\"index.html\"����ҳ��/a��");
+		Matcher matcher = pattern.matcher("<a href=\"index.html\" target=\"blank\"");
 		if (matcher.find()){
 			System.out.println(matcher.group(1));
 		}
@@ -229,6 +229,17 @@ public class RegexTest {
 		Matcher m = p.matcher(str);
 		System.out.println(m.find());
 		System.out.println(m.matches());
+	}
+	
+	@Test
+	public void testString(){
+		String str = "vgoogle.com1";
+//		Pattern p = Pattern.compile("^(?!google)vgoogle\\.com1.*");
+		Pattern p = Pattern.compile("^(?!google).*");
+		Matcher m = p.matcher(str);
+		if(m.find()){
+			System.out.println(m.group());
+		}
 	}
 	
 }
