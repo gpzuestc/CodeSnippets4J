@@ -232,11 +232,30 @@ public class RegexTest {
 	}
 	
 	@Test
-	public void testString(){
+	public void testContainStr(){
+		//test begin with some string
 		String str = "vgoogle.com1";
 //		Pattern p = Pattern.compile("^(?!google)vgoogle\\.com1.*");
 		Pattern p = Pattern.compile("^(?!google).*");
 		Matcher m = p.matcher(str);
+		if(m.find()){
+			System.out.println(m.group());
+		}
+		
+		//test end with some string
+		String str2 = "vgoogle.cn";
+//		String str2 = "vgoogle.com";
+		p = Pattern.compile("^.*?(?<!com)$");
+		m = p.matcher(str2);
+		if(m.find()){
+			System.out.println(m.group());
+		}
+		
+		//does not contain some string
+		String str3 = "vgoogl3e.com";
+//		String str3 = "vgoogle.com";
+		p = Pattern.compile("^(?!.*google).*$");
+		m = p.matcher(str3);
 		if(m.find()){
 			System.out.println(m.group());
 		}
