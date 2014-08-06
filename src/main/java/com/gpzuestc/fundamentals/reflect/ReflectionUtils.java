@@ -4,8 +4,18 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
+import javassist.ClassClassPath;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtMethod;
+import javassist.Modifier;
+import javassist.NotFoundException;
+import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.LocalVariableAttribute;
+import javassist.bytecode.MethodInfo;
   
-public class Reflection {   
+public class ReflectionUtils {   
     /**  
      * 得到某个对象的公共属性  
      *  
@@ -14,7 +24,7 @@ public class Reflection {
      * @throws Exception  
      *  
      */  
-    public Object getProperty(Object owner, String fieldName) throws Exception {   
+    public static Object getProperty(Object owner, String fieldName) throws Exception {   
         Class ownerClass = owner.getClass();   
         Field field = ownerClass.getField(fieldName);   
         Object property = field.get(owner);   
@@ -28,7 +38,7 @@ public class Reflection {
      * @return 该属性对象  
      * @throws Exception  
      */  
-    public Object getStaticProperty(String className, String fieldName)   
+    public static Object getStaticProperty(String className, String fieldName)   
             throws Exception {   
         Class ownerClass = Class.forName(className);   
         Field field = ownerClass.getField(fieldName);   
@@ -48,7 +58,7 @@ public class Reflection {
      * @return 方法返回值  
      * @throws Exception  
      */  
-    public Object invokeMethod(Object owner, String methodName, Object[] args)   
+    public static Object invokeMethod(Object owner, String methodName, Object[] args)   
             throws Exception {   
         Class ownerClass = owner.getClass();   
         Class[] argsClass = new Class[args.length];   
@@ -71,7 +81,7 @@ public class Reflection {
      * @return 执行方法返回的结果  
      * @throws Exception  
      */  
-    public Object invokeStaticMethod(String className, String methodName,   
+    public static Object invokeStaticMethod(String className, String methodName,   
             Object[] args) throws Exception {   
         Class ownerClass = Class.forName(className);   
         Class[] argsClass = new Class[args.length];   
@@ -91,7 +101,7 @@ public class Reflection {
      * @return 新建的实例  
      * @throws Exception  
      */  
-    public Object newInstance(String className, Object[] args) throws Exception {   
+    public static Object newInstance(String className, Object[] args) throws Exception {   
         Class newoneClass = Class.forName(className);   
         Class[] argsClass = new Class[args.length];   
         for (int i = 0, j = args.length; i < j; i++) {   
@@ -108,7 +118,7 @@ public class Reflection {
      * @param cls 类  
      * @return 如果 obj 是此类的实例，则返回 true  
      */  
-    public boolean isInstance(Object obj, Class cls) {   
+    public static boolean isInstance(Object obj, Class cls) {   
         return cls.isInstance(obj);   
     }   
        
@@ -118,8 +128,44 @@ public class Reflection {
      * @param index 索引  
      * @return 返回指定数组对象中索引组件的值  
      */  
-    public Object getByArray(Object array, int index) {   
+    public static Object getByArray(Object array, int index) {   
         return Array.get(array,index);   
     }   
     
+    /* 
+     * 获取方法参数名 
+     */  
+    public static String[] getMethodVariableNames(String targetClass, String targetMethodName) {  
+        Class<?> clazz = null;  
+        try {  
+            clazz = Class.forName(targetClass);  
+        } catch (ClassNotFoundException e) {  
+            e.printStackTrace();  
+        }  
+        ClassPool pool = ClassPool.getDefault();  
+        pool.insertClassPath(new ClassClassPath(clazz));  
+        CtClass cc;  
+        CtMethod cm = null;  
+        try {  
+            cc = pool.get(clazz.getName());  
+            cm = cc.getDeclaredMethod(targetMethodName);  
+        } catch (NotFoundException e) {  
+            e.printStackTrace();  
+        }  
+      
+        // 使用javaassist的反射方法获取方法的参数名  
+        MethodInfo methodInfo = cm.getMethodInfo();  
+        CodeAttribute codeAttribute = methodInfo.getCodeAttribute();  
+        LocalVariableAttribute attr = (LocalVariableAttribute) codeAttribute.getAttribute(LocalVariableAttribute.tag);  
+        String[] variableNames = new String[0];  
+        try {  
+            variableNames = new String[cm.getParameterTypes().length];  
+        } catch (NotFoundException e) {  
+            e.printStackTrace();  
+        }  
+        int staticIndex = Modifier.isStatic(cm.getModifiers()) ? 0 : 1;  
+        for (int i = 0; i < variableNames.length; i++)  
+            variableNames[i] = attr.variableName(i + staticIndex);  
+        return variableNames;  
+    }  
 }  

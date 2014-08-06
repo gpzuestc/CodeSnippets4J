@@ -135,4 +135,12 @@ public class User implements Cloneable, Serializable, Comparable<User>{
 	public int compareTo(User o) {
 		return this.name.compareTo(o.getName());
 	}
+	
+	public void testArgsName(String str1){
+		
+	}
+	
+	public void testArgsName(String str1, String str2){
+		
+	}
 }
