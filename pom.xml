@@ -8,8 +8,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jedis.version>2.2.0</jedis.version>
-<!-- 		<jedis.version>2.5.1</jedis.version> -->
-<!-- 		<spring.version>3.2.3.RELEASE</spring.version> -->
+		<!-- <jedis.version>2.5.1</jedis.version> -->
+		<!-- <spring.version>3.2.3.RELEASE</spring.version> -->
 		<spring.version>4.0.5.RELEASE</spring.version>
 	</properties>
 	<dependencies>
@@ -295,6 +295,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>2.5.0</version>
 		</dependency>
 
 	</dependencies>
