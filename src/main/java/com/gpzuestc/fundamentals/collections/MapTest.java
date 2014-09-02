@@ -7,8 +7,11 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
+import org.apache.commons.collections.map.ListOrderedMap;
 import org.junit.Test;
 
 /**
@@ -94,6 +97,33 @@ public class MapTest {
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 		String str  = "abcdefg";
 		str.indexOf("e");
+	}
+	
+	@Test
+	public void testListOrderedMap(){
+		Map<String, String> map = new HashMap<String, String>();
+        map.put("1", "Test1");
+        map.put("2", "Test2");
+        map.put("3", "Test3");
+        map.put("4", "Test4");
+
+        Set<Entry<String, String>> entrySet1 = map.entrySet();
+        for (Entry<String, String> entry : entrySet1) {
+            System.out.println(entry.getKey() + ":" + entry.getValue());
+        }
+        
+        System.out.println("------------");
+        
+        Map<String, String> listOrderedMap = ListOrderedMap.decorate(new HashMap());
+        listOrderedMap.put("1", "Test1");
+        listOrderedMap.put("2", "Test2");
+        listOrderedMap.put("3", "Test3");
+        listOrderedMap.put("4", "Test4");
+
+        Set<Entry<String, String>> entrySet2 = listOrderedMap.entrySet();
+        for (Entry<String, String> entry : entrySet2) {
+            System.out.println(entry.getKey() + ":" + entry.getValue());
+        }
 	}
 }
 
