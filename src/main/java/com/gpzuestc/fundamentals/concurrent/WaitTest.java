@@ -17,12 +17,13 @@ public class WaitTest {
 			try {
 				System.out.println("wait to push");
 				wait();
+				System.out.println("after wait in push");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		notifyAll(); //位置只要再次之下就ok
 		System.out.println("111");
-		notifyAll();
 		try {
 			System.out.println("222");
 			Thread.sleep(1500L);
@@ -40,6 +41,7 @@ public class WaitTest {
 			try {
 				System.out.println("wait to pop");
 				wait();
+				System.out.println("after wait in pop");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -53,11 +55,11 @@ public class WaitTest {
 	public static void main(String[] args) {
 		final int count = 30;
 		final WaitTest wt = new WaitTest();
-		
 		Thread producer = new Thread(){
 			public void run() {
 				for(int i = 0; i < count; i++){
 //					System.out.println("push:" + i);
+					System.out.println("push " + currentThread().getName());
 					wt.push(i + "");
 				}
 			};
@@ -68,11 +70,23 @@ public class WaitTest {
 			@Override
 			public void run() {
 				for(int i = 0; i < count; i++){
+					System.out.println("pop " + currentThread().getName());
 					wt.pop();
 				}
 			}
 		};
 		consumer.start();
+		
+		Thread consumer2 = new Thread(){
+			@Override
+			public void run() {
+				for(int i = 0; i < count; i++){
+					System.out.println("pop2 " + currentThread().getName());
+					wt.pop();
+				}
+			}
+		};
+		consumer2.start();
 		
 	}
 }
