@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
@@ -124,6 +125,26 @@ public class MapTest {
         for (Entry<String, String> entry : entrySet2) {
             System.out.println(entry.getKey() + ":" + entry.getValue());
         }
+	}
+	
+	@Test
+	public void testTreeMap(){
+		TreeMap<String, Integer> map = new TreeMap<String, Integer>(new Comparator<String>() {
+
+			@Override
+			public int compare(String o1, String o2) {
+//				return o1.compareTo(o2);
+				return o2.compareTo(o1); //key 倒序
+			}
+		});
+		
+		map.put("10", 2);
+		map.put("08", 23);
+		map.put("11", 234);
+		
+		for(Entry<String, Integer> entry : map.entrySet()){
+			System.out.println(entry.getKey() + ":" + entry.getValue()); 
+		}
 	}
 }
 
