@@ -216,6 +216,19 @@ public class ListTest {
 //		subList = list.subList(0, 0);
 		subList = list.subList(3, 4);
 		System.out.println(JSONArray.fromObject(subList).toString());
+
+		//sublist添加元素也会影响原来的list
+		subList.add("e");
+//		list.add("f");  //list不能再添加元素？？？？？
+		System.out.println(JSONArray.fromObject(subList).toString());
+		System.out.println(JSONArray.fromObject(list).toString());
+		
+		list = list.subList(0, 3);
+		System.out.println(JSONArray.fromObject(list).toString());
+		
+//		list.add("f");
+//		System.out.println(JSONArray.fromObject(subList).toString());
+//		System.out.println(JSONArray.fromObject(list).toString());
 		
 	}
 	
@@ -332,5 +345,17 @@ public class ListTest {
 		System.out.println(aList.removeAll(cList));
 		System.out.println(aList);
 		
+	}
+	
+	@Test
+	public void testChangeAfterAdd(){
+		List<User> list = new ArrayList<User>();
+		User u = new User();
+		u.setName("guopeng");
+		list.add(u);
+		u.setName("zhang");;
+		System.out.println(list.get(0).getName());
+		u = null;
+		System.out.println(list.get(0));
 	}
 }
