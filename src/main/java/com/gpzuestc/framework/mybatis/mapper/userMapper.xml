@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.gpzuestc.framework.mybatis.dao.UserDAO">
+
+<!-- 	<resultMap type="User" id="aa">   -->
+<!--         <id property="id" column="id" javaType="int" jdbcType="INTEGER"/>   -->
+<!--         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>   -->
+<!--     </resultMap> -->
+	<!--
+		获取用户: 输出直接映射到对象, login_name列要"as loginName"以方便映射 ,team_id as "team.id"创建team对象并赋值
+	-->
+	<select id="load" parameterType="long" resultType="User">
+		select id, name
+		from user
+		where id=#{id}
+	</select>
+	
+	<!-- 插入用户： 1.由数据库生成id并赋值到user对象 2.输入用对象 -->
+	<insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+		insert into user (name)
+		values (#{name})
+	</insert>
+	
+	<select id="findByNameAndStartAndSize" parameterType="hashmap" resultType="User">
+		select *
+		from user
+		where name=#{name} limit
+		<choose>
+			<when test="start lt 0"> 0 </when>
+			<otherwise>#{start}</otherwise>
+		</choose>
+		 ,#{size}
+		
+	</select>
+</mapper>

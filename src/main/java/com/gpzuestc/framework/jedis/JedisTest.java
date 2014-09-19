@@ -1,10 +1,13 @@
 package com.gpzuestc.framework.jedis;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -12,6 +15,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
+import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
@@ -530,5 +534,46 @@ public class JedisTest {
 	
 //	@Test
 	
-	
+	@Test
+	public void testJedisSave() throws IOException{
+		
+		List<String> uids = FileUtils.readLines(new File("/Users/gpzuestc/Downloads/uid.txt"));
+		JedisPoolConfig jpc = new JedisPoolConfig();
+		jpc.setMaxActive(100);
+		jpc.setMaxIdle(50);
+		jpc.setMaxWait(5 * 1000);
+		
+		JedisPool jp = new JedisPool(jpc, "10.10.77.159", 6388);
+		Jedis j = jp.getResource();
+		Pipeline pip = j.pipelined();
+		long start = System.currentTimeMillis();
+		for(int i = 0; i < uids.size(); i++){
+			pip.set("gpz" + i, uids.get(i));
+		}
+		pip.sync();
+		long duration = System.currentTimeMillis() - start;
+		System.out.println("save time:" + duration + "ms");
+		
+		start = System.currentTimeMillis();
+		for(int i = 0; i < uids.size(); i++){
+			pip.get("gpz" + i);
+		}
+		List list = pip.syncAndReturnAll();
+		duration = System.currentTimeMillis() - start;
+		System.out.println("get time:" + duration + "ms");
+		System.out.println("list size:" + list.size());
+		
+		start = System.currentTimeMillis();
+		for(int i = 0; i < list.size(); i++){
+			System.out.println(list.get(i));
+			if(list.get(i).equals(234)){
+				System.out.println(list.get(i));
+			}
+		}
+		duration = System.currentTimeMillis() - start;
+		System.out.println("遍历time:" + duration + "ms");
+		
+		jp.returnResource(j);
+		
+	}
 }
