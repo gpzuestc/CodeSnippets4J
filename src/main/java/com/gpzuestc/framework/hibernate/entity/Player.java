@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,8 +27,12 @@ public class Player {
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "teamId")
-	private Long teamId;
+//	@Column(name = "teamId")
+//	private Long teamId;
+	
+	@ManyToOne
+	@JoinColumn(name="teamId")
+	private Team team;
 	
 	public Long getId() {
 		return id;
@@ -40,11 +46,17 @@ public class Player {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Long getTeamId() {
-		return teamId;
+//	public Long getTeamId() {
+//		return teamId;
+//	}
+//	public void setTeamId(Long teamId) {
+//		this.teamId = teamId;
+//	}
+	public Team getTeam() {
+		return team;
 	}
-	public void setTeamId(Long teamId) {
-		this.teamId = teamId;
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 	
 	

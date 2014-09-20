@@ -21,4 +21,8 @@ public interface PlayerDAO {
 	List<Player> listByTeamId(Long teamId);
 	
 	List<PlayerBO> listPlayerBOByTeamId(Long teamId);
+	
+	List<Player> getPlayers();
+	
+	List<Player> getPlayersLefJoinFetch();
 }

@@ -1,5 +1,7 @@
 package com.gpzuestc.framework.hibernate;
 
+import java.util.List;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -55,5 +57,18 @@ public class HibernateDemo {
 	@Test
 	public void testLoadBOList(){
 		System.out.println(playerDAO.listPlayerBOByTeamId(1L));
+	}
+	
+	@Test
+	public void testFindAllPlayers(){
+		System.out.println(playerDAO.getPlayers());
+	}
+	
+	
+	@Test
+	public void testLeftJoinFetch(){
+		List<Player> list = playerDAO.getPlayersLefJoinFetch();
+		System.out.println(list.size());
+		System.out.println(list.get(0).getTeam().getName());
 	}
 }

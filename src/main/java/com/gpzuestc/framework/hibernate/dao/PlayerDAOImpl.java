@@ -132,4 +132,23 @@ public class PlayerDAOImpl implements PlayerDAO{
 		});
 		return players;
 	}
+
+	@Override
+	public List<Player> getPlayers() {
+		return localHibernateTemplate.findByExample(new Player());
+	}
+
+	@Override
+	public List<Player> getPlayersLefJoinFetch() {
+		return localHibernateTemplate.execute(new HibernateCallback< List<Player>>() {
+
+			@Override
+			public  List<Player> doInHibernate(Session session) throws HibernateException {
+				Query query = session.createQuery("from Player as p left join fetch p.team as team");
+//				query.setResultTransformer(Transformers.aliasToBean(Player.class));
+				return (List<Player>)query.list();
+			}
+			
+		});
+	}
 }
