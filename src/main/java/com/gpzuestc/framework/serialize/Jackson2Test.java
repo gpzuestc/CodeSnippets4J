@@ -1,4 +1,4 @@
-package com.gpzuestc.framework.json;
+package com.gpzuestc.framework.serialize;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -129,9 +130,12 @@ public class Jackson2Test {
 		User user = new User("sdfsdfsf", 24, g);
 		List<User> list = new ArrayList<User>();
 		list.add(user);
+		user = new User("sdfsdfsf", 15, g);
 		list.add(user);
 		
 		int count = 10000 * 100;
+		System.out.println("jackson serialize length:" + m.writeValueAsString(list).length());
+		System.out.println("jackson serialize length:" + m.writeValueAsString(list));
 		long start = System.currentTimeMillis();
 		for(int i = 0; i < count; i++){
 			m.writeValueAsString(list);
@@ -140,17 +144,39 @@ public class Jackson2Test {
 		System.out.println("jackson serialize:" + duration);
 		
 		
+		System.out.println("fast-json serialize length:" +  JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect).length());
+		System.out.println("fast-json serialize length:" +  JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect));
 		start = System.currentTimeMillis();
 		for(int i = 0; i < count; i++){
 			JSON.toJSONString(list);
 		}
 		System.out.println("fast-json serialize:" + (System.currentTimeMillis() - start));
 		
+//		start = System.currentTimeMillis();
+//		for(int i = 0; i < count; i++){
+//			JSONArray.fromObject(list).toString();
+//		}
+//		System.out.println("json-lib serialize:" + (System.currentTimeMillis() - start));
+		
+		System.out.println("hessian serialize length:" + HessianSerializeUtil.encode(list).length);
+		System.out.println("hessian serialize length:" + new String(HessianSerializeUtil.encode(list)));
 		start = System.currentTimeMillis();
 		for(int i = 0; i < count; i++){
-			JSONArray.fromObject(list).toString();
+			HessianSerializeUtil.encode(list);
 		}
-		System.out.println("json-lib serialize:" + (System.currentTimeMillis() - start));
+		System.out.println("hessian serialize:" + (System.currentTimeMillis() - start));
+		
+		
+		System.out.println("kryo serialize length:" + KryoSerializeUtil.encode(list).length);
+		System.out.println("kryo serialize length:" + new String(KryoSerializeUtil.encode(list)));
+		start = System.currentTimeMillis();
+		for(int i = 0; i < count; i++){
+			KryoSerializeUtil.encode(list);
+		}
+		System.out.println("kryo serialize:" + (System.currentTimeMillis() - start));
+		
+		
+		
 		System.out.println();
 
 		/**********************************************/
@@ -169,11 +195,11 @@ public class Jackson2Test {
 		System.out.println("fast-json deserialize:" + (System.currentTimeMillis() - start));
 		
 		
-		start = System.currentTimeMillis();
-		for(int i = 0; i < count; i++){
-			JSONArray.fromObject(str);
-		}
-		System.out.println("json-lib deSerialize:" + (System.currentTimeMillis() - start));
+//		start = System.currentTimeMillis();
+//		for(int i = 0; i < count; i++){
+//			JSONArray.fromObject(str);
+//		}
+//		System.out.println("json-lib deSerialize:" + (System.currentTimeMillis() - start));
 		
 		System.out.println();
 		
@@ -194,13 +220,27 @@ public class Jackson2Test {
 		System.out.println("fast-json to bean:" + (System.currentTimeMillis() - start));
 		
 		
+//		start = System.currentTimeMillis();
+//		Map<String, Class> map = new HashMap<String, Class>();
+//		map.put("group",Group.class);
+//		for(int i = 0; i < count; i++){
+//			JSONObject.toBean(JSONObject.fromObject(objStr), User.class, map);
+//		}
+//		System.out.println("json-lib to bean:" + (System.currentTimeMillis() - start));
+		
+		byte[] bytes = HessianSerializeUtil.encode(JSON.parseObject(objStr, User.class));
 		start = System.currentTimeMillis();
-		Map<String, Class> map = new HashMap<String, Class>();
-		map.put("group",Group.class);
 		for(int i = 0; i < count; i++){
-			JSONObject.toBean(JSONObject.fromObject(objStr), User.class, map);
+			HessianSerializeUtil.decode(bytes);
 		}
-		System.out.println("json-lib to bean:" + (System.currentTimeMillis() - start));
+		System.out.println("hessian decode:" + (System.currentTimeMillis() - start));
+		
+		bytes = KryoSerializeUtil.encode(JSON.parseObject(objStr, User.class));
+		start = System.currentTimeMillis();
+		for(int i = 0; i < count; i++){
+			KryoSerializeUtil.decode(bytes, User.class);
+		}
+		System.out.println("kryo decode:" + (System.currentTimeMillis() - start));
 		
 		System.out.println();
 	}

@@ -1,4 +1,4 @@
-package com.gpzuestc.framework.json;
+package com.gpzuestc.framework.serialize;
 
 import net.sf.json.processors.DefaultValueProcessor;
 

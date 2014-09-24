@@ -24,7 +24,7 @@ public final class NodeLocator {
 				byte[] digest = hashAlg.computeMd5(node.getName() + i);
 				for(int h = 0; h < 4; h++) {
 					long m = hashAlg.hash(digest, h);
-					
+					node.setFlag(m);
 					nodesMap.put(m, node);
 				}
 			}

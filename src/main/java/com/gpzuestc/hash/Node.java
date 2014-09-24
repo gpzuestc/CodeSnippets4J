@@ -10,6 +10,7 @@ import com.gpzuestc.hash.consistent.jedis.JedisShardInfo;
  */
 public class Node {
 	private String name;
+	private long flag;
 	public Node(String name) {
 		this.name = name;
 	}
@@ -29,5 +30,22 @@ public class Node {
 	@Override
 	public String toString() {
 		return name;
+	}
+	public long getFlag() {
+		return flag;
+	}
+	public void setFlag(long flag) {
+		this.flag = flag;
+	}
+	
+	@Override
+	public int hashCode() {
+		return (int)(flag % Integer.MAX_VALUE);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return this.flag == ((Node)obj).getFlag();
 	}
 }

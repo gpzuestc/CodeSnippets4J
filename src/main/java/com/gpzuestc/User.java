@@ -1,6 +1,7 @@
 package com.gpzuestc;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,6 +22,7 @@ public class User implements Cloneable, Serializable, Comparable<User>{
 	private Group group;
 	private String extend;
 	private String DNA;
+	private Date birthDay;
 	
 	public User(String name) {
 		this.name = name;
@@ -142,5 +144,13 @@ public class User implements Cloneable, Serializable, Comparable<User>{
 	
 	public void testArgsName(String str1, String str2){
 		
+	}
+
+	public Date getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(Date birthDay) {
+		this.birthDay = birthDay;
 	}
 }

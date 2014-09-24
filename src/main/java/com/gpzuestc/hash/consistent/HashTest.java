@@ -23,20 +23,20 @@ public class HashTest {
 	/** key's count */
 	private static final Integer EXE_TIMES = 100000;
 	
-	private static final Integer NODE_COUNT = 5;
+	private static final Integer NODE_COUNT = 10;
 	
 	private static final Integer VIRTUAL_NODE_COUNT = 160;
 	
 	public static void main(String[] args) {
-//		testHash(HashAlgorithm.KETAMA_HASH);
-//		testHash(HashAlgorithm.MURMUR_HASH);
-//		testHash(HashAlgorithm.MD5_HASH);
-//		testHash(HashAlgorithm.DJB_HASH);
+		testHash(HashAlgorithm.KETAMA_HASH);
+		testHash(HashAlgorithm.MURMUR_HASH);
+		testHash(HashAlgorithm.MD5_HASH);
+		testHash(HashAlgorithm.DJB_HASH);
 		
 		
-		testJedisShard(Hashing.MURMUR_HASH);
-		testJedisShard(Hashing.MD5);
-		testJedisShard(Hashing.KETAMA_HASH);
+//		testJedisShard(Hashing.MURMUR_HASH);
+//		testJedisShard(Hashing.MD5);
+//		testJedisShard(Hashing.KETAMA_HASH);
 	}
 
 
@@ -50,7 +50,7 @@ public class HashTest {
 		List<Node> allNodes = test.getNodes(NODE_COUNT);
 		NodeLocator locator = new NodeLocator(allNodes, alg, VIRTUAL_NODE_COUNT);
 		List<String> allKeys = test.getAllStrings();
-		Map<Node, Integer> nodeRecord = null;
+		Map<String, Node> keyNodeMap = new HashMap<String, Node>();
 //		for(int i = 0; i < 3; i++){
 //			if(i == 1){
 //				List<Node> subNodes = new ArrayList<Node>(allNodes);
@@ -61,34 +61,85 @@ public class HashTest {
 //				addNodes.add(new Node("node" + (NODE_COUNT + 1)));
 //				locator = new NodeLocator(addNodes, alg, VIRTUAL_NODE_COUNT);
 //			}
-			nodeRecord = new HashMap<Node, Integer>();
 			for (String key : allKeys) {
 				Node node = locator.getPrimary(key);
-				
-				Integer times = nodeRecord.get(node);
-				if (times == null) {
-					nodeRecord.put(node, 1);
-				} else {
-					nodeRecord.put(node, times + 1);
-				}
+				keyNodeMap.put(key, node);
 			}
 			
-			System.out.println("Execute time: " + (System.currentTimeMillis() - begin) + "ms");
-			float expect = (float) 100 / locator.getNodes().size() ;
-			System.out.println("Nodes count : " + locator.getNodes().size() + ", Keys count : " + EXE_TIMES + ", Expect percent : " + expect + "%");
-			System.out.println("-------------------- -------  ----------------------");
-			System.out.println("NodeName\tHitCount\tPercent");
-			float sum = 0;
-			float percent = 0;
-			for (Map.Entry<Node, Integer> entry : nodeRecord.entrySet()) {
-				percent = (float)entry.getValue() / EXE_TIMES * 100;
-				System.out.println(entry.getKey() + "\t\t" + entry.getValue() + "\t\t" + percent + "%");
-				sum += Math.pow(percent - expect, 2);
-			}
-			System.out.println("Variance:" + Math.sqrt(sum / locator.getNodes().size()));
+//			System.out.println("Execute time: " + (System.currentTimeMillis() - begin) + "ms");
+//			float expect = (float) 100 / locator.getNodes().size() ;
+//			System.out.println("\nNodes count : " + locator.getNodes().size() + ", Keys count : " + EXE_TIMES + ", Expect percent : " + expect + "%");
+//			System.out.println("-------------------- -------  ----------------------");
+//			System.out.println("NodeName\tHitCount\tPercent");
+//			float sum = 0;
+//			float percent = 0;
+//			for (Map.Entry<Node, Integer> entry : nodeRecord.entrySet()) {
+//				percent = (float)entry.getValue() / EXE_TIMES * 100;
+//				System.out.println(entry.getKey() + "\t\t" + entry.getValue() + "\t\t" + percent + "%");
+//				sum += Math.pow(percent - expect, 2);
+//			}
+//			System.out.println("Variance:" + Math.sqrt(sum / locator.getNodes().size()));
+			
+			Map<Node, Integer> baseNodeMap = changeNode(alg, test, allKeys, keyNodeMap, null, NODE_COUNT);
+			changeNode(alg, test, allKeys, keyNodeMap, baseNodeMap, NODE_COUNT + 1);
+			changeNode(alg, test, allKeys, keyNodeMap, baseNodeMap, NODE_COUNT - 1);
 			System.out.println("-------------------- -------  ----------------------");
 			System.out.println();
 //		}
+	}
+
+
+	private static Map<Node, Integer> changeNode(HashAlgorithm alg, HashTest test,
+			List<String> allKeys, Map<String, Node> keyNodeMap, Map<Node, Integer> compareNodeMap, int nodeCount) {
+		List<Node> allNodes;
+		NodeLocator locator;
+		long count = 0;
+		allNodes = test.getNodes(nodeCount);
+		locator = new NodeLocator(allNodes, alg, VIRTUAL_NODE_COUNT);
+		Map<Node, Integer> nodeRecord = new HashMap<Node, Integer>();
+		Map<Node, Integer> hitRecord = new HashMap<Node, Integer>();
+		for (String key : allKeys) {
+			Node node = locator.getPrimary(key);
+			if(node.getFlag() == keyNodeMap.get(key).getFlag()){
+				count++;
+				Integer hit = hitRecord.get(node);
+				if (hit == null) {
+					hitRecord.put(node, 1);
+				} else {
+					hitRecord.put(node, hit + 1);
+				}
+			}
+			Integer times = nodeRecord.get(node);
+			if (times == null) {
+				nodeRecord.put(node, 1);
+			} else {
+				nodeRecord.put(node, times + 1);
+			}
+			
+		}
+		float expect = (float) 100 / locator.getNodes().size() ;
+		System.out.println("\nNodes count : " + locator.getNodes().size() + ", Keys count : " + EXE_TIMES + ", Expect percent : " + expect + "%");
+		System.out.println("-------------------- -------  ----------------------");
+		System.out.println("NodeName\tHitCount\tPercent");
+		float sum = 0;
+		float percent = 0;
+		for (Map.Entry<Node, Integer> entry : nodeRecord.entrySet()) {
+			percent = (float)entry.getValue() / EXE_TIMES * 100;
+			System.out.println(entry.getKey() + "\t\t" + entry.getValue() + "\t\t" + percent + "%");
+			sum += Math.pow(percent - expect, 2);
+		}
+		System.out.println("Variance:" + Math.sqrt(sum / locator.getNodes().size()));
+		
+		if(compareNodeMap != null){
+			for (Map.Entry<Node, Integer> entry : hitRecord.entrySet()) {
+				if (compareNodeMap.get(entry.getKey()) != null){
+					percent = (float)entry.getValue() / compareNodeMap.get(entry.getKey()) * 100;
+					System.out.println(entry.getKey() + "\t\t" + entry.getValue() + "\t\t" + percent + "%");
+				}
+			}
+			System.out.println(count * 1.0 / allKeys.size());
+		}
+		return nodeRecord;
 	}
 	
 	private static void testJedisShard(Hashing alg){
