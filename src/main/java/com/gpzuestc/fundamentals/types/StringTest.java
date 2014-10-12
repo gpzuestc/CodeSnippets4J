@@ -213,6 +213,39 @@ public class StringTest {
 		return str;
 	}
 	
+	@Test
+	public void test1(){
+		final String pig = "length: 10";
+        final String dog = "length: " + pig.length();
+
+        System.out.println(pig == dog);
+        System.out.println("Animals are equal: " + pig == dog + ";" + pig.equals(dog));
+        System.out.println("Animals are equal: " + (pig == dog) + ";" + pig.equals(dog));
+        
+        System.out.println();
+        String a = "ab3";
+        String b = "ab" + a.length();
+        int num = 3;
+        String c = "ab" + num;
+        String d = "ab" + 3;
+        Integer num1 = 3;
+        String e = "ab" + num1;
+        Long num2 = 3L;
+        String f = "ab" + num2;
+        String g = "ab" + 3L;
+        System.out.println(a == b);
+        System.out.println(a == c);
+        System.out.println(a == d); //true
+        System.out.println(a == e);
+        System.out.println(a == f);
+        System.out.println(a == g); //true
+        
+        System.out.println();
+        a = "ab: 4";
+        b = "ab: " + "4";
+        System.out.println(a == b);
+	}
+	
 	public static void main(String[] args) {
 		String str = "搜狐微博活跃者，誓要汇集天下娱乐之精华，让你在这里流连忘返，如痴如醉。\n搜狐微博交流群:19078484,";
 		byte[] bs = str.getBytes();

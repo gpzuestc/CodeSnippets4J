@@ -82,8 +82,8 @@ public class ObjectReference {
 		u = uu;   //不会改变sa中user对象
 		System.out.println("重赋值后User:" + sa.getU().getName());
 		
-		u=null;
-		System.out.println(u.toString());
+//		u=null;
+//		System.out.println(u.toString());
 		
 	}
 	
