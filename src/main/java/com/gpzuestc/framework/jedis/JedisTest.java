@@ -544,36 +544,102 @@ public class JedisTest {
 		jpc.setMaxWait(5 * 1000);
 		
 		JedisPool jp = new JedisPool(jpc, "10.10.77.159", 6388);
-		Jedis j = jp.getResource();
-		Pipeline pip = j.pipelined();
-		long start = System.currentTimeMillis();
-		for(int i = 0; i < uids.size(); i++){
+		Jedis j = null;
+		long start = 0;
+		long duration = 0;
+		List list = null;
+		Pipeline pip = null;
+		
+//		int keyLen = uids.size();
+		int keyLen = 500;
+		
+		//pip save;
+		j = jp.getResource();
+		pip = j.pipelined();
+		start = System.currentTimeMillis();
+		for(int i = 0; i < keyLen; i++){
 			pip.set("gpz" + i, uids.get(i));
 		}
 		pip.sync();
-		long duration = System.currentTimeMillis() - start;
+		duration = System.currentTimeMillis() - start;
 		System.out.println("save time:" + duration + "ms");
-		
-		start = System.currentTimeMillis();
-		for(int i = 0; i < uids.size(); i++){
-			pip.get("gpz" + i);
-		}
-		List list = pip.syncAndReturnAll();
-		duration = System.currentTimeMillis() - start;
-		System.out.println("get time:" + duration + "ms");
-		System.out.println("list size:" + list.size());
-		
-		start = System.currentTimeMillis();
-		for(int i = 0; i < list.size(); i++){
-			System.out.println(list.get(i));
-			if(list.get(i).equals(234)){
-				System.out.println(list.get(i));
-			}
-		}
-		duration = System.currentTimeMillis() - start;
-		System.out.println("遍历time:" + duration + "ms");
-		
 		jp.returnResource(j);
 		
+		//mset 
+		j = jp.getResource();
+		String[] keyValues = new String[keyLen];
+		for(int i = 0; i < keyLen; i+=2){
+			keyValues[i] = "gpz" + i;
+			keyValues[i+1] = uids.get(i/2);
+		}
+		start = System.currentTimeMillis();
+		j.mset(keyValues);
+		duration = System.currentTimeMillis() - start;
+		System.out.println("mset time:" + duration + "ms");
+		jp.returnResource(j);
+		
+		
+		//pip get
+		j = jp.getResource();
+		pip = j.pipelined();
+		start = System.currentTimeMillis();
+		for(int i = 0; i < keyLen; i++){
+			pip.get("gpz" + i);
+		}
+		list = pip.syncAndReturnAll();
+		duration = System.currentTimeMillis() - start;
+		System.out.println("pip get time:" + duration + "ms");
+		System.out.println("list size:" + list.size());
+		jp.returnResource(j);
+		
+		//mget 
+		j = jp.getResource();
+//		String[] keys = new String[uids.size()];
+		System.out.println(keyLen);
+		String[] keys = new String[keyLen];
+		for(int i = 0; i < keyLen; i++){
+			keys[i] = "gpz" + i;
+		}
+		start = System.currentTimeMillis();
+		List<String> values = j.mget(keys);
+		duration = System.currentTimeMillis() - start;
+		System.out.println("mget time:" + duration + "ms");
+		jp.returnResource(j);
+		
+		start = System.currentTimeMillis();
+//		for(int i = 0; i < list.size(); i++){
+////			System.out.println(list.get(i));
+//			if(list.get(i).equals(234)){
+//				System.out.println(list.get(i));
+//			}
+//		}
+//		duration = System.currentTimeMillis() - start;
+//		System.out.println("遍历time:" + duration + "ms");
+		
+	}
+	
+	/**
+	 * 数据量小的情况下，mget性能要好于pipline
+	 * 数据量大的情况下，相差不多
+	 * pip get time:5594ms
+	   list size:660224
+       mget time:5417ms
+
+       pip get time:29ms
+	   list size:500
+       mget time:15ms
+	 */
+	
+	@Test
+	public void testMget(){
+		JedisPool jp = new JedisPool( "10.10.77.159", 6388);
+		Jedis j = jp.getResource();
+		int len = 2;
+		String[] keys = new String[len];
+		for(int i = 0; i < len; i++){
+			keys[i] = "a" + i;
+		}
+		List<String> list = j.mget(keys);
+		System.out.println(list.get(0));
 	}
 }

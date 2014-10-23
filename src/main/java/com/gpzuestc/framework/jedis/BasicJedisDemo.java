@@ -37,6 +37,27 @@ public class BasicJedisDemo {
 	private static int errorCount = 0;
 
 	
+	@Test
+	public void testConnect(){
+		Jedis jedis = new Jedis("10.13.87.66", 22121);
+		jedis.connect();
+		System.out.println(1);
+		System.out.println(jedis.get("a"));
+	}
+	
+	@Test
+	public void testJedisPool(){
+		JedisPoolConfig config = new JedisPoolConfig();
+		config.setMaxActive(256);
+		config.setMaxIdle(100);
+		config.setMaxWait(100l);
+		JedisPool jp = new JedisPool(config, "10.13.87.67", 22121,5000);
+		Jedis jedis = jp.getResource();
+		System.out.println(jedis);
+		System.out.println(jedis.get("b"));
+//		System.out.println(jedis.ping().equals("PONG"));
+	}
+	
 	
 	@Test
 	public void testJedisCluster()throws Exception{

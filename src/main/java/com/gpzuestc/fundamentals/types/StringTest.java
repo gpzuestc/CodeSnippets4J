@@ -233,12 +233,15 @@ public class StringTest {
         Long num2 = 3L;
         String f = "ab" + num2;
         String g = "ab" + 3L;
+        long num3 = 3;
+        String h = "ab" + num3;
         System.out.println(a == b);
         System.out.println(a == c);
         System.out.println(a == d); //true
         System.out.println(a == e);
         System.out.println(a == f);
         System.out.println(a == g); //true
+        System.out.println(a == h);
         
         System.out.println();
         a = "ab: 4";
