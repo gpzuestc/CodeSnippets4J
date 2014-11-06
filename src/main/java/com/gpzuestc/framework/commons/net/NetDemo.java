@@ -16,7 +16,7 @@ public class NetDemo {
 	public void testTelnet(){
 		TelnetClient telnet = new TelnetClient();
 		try {
-			telnet.connect("10.10.77.159", 6388);
+			telnet.connect("179.30.77.159", 6388);
 			System.out.println(telnet.isAvailable());
 			System.out.println(telnet.getInputStream());
 			System.out.println(telnet.getOutputStream());

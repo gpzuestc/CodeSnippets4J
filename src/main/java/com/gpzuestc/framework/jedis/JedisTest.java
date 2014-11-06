@@ -29,8 +29,8 @@ public class JedisTest {
 	
 	
 	private static final int PORT = 6388;
-//	private static final String HOST = "10.1.36.194";
-	private static final String HOST = "10.10.52.163";
+//	private static final String HOST = "179.3.36.194";
+	private static final String HOST = "179.30.52.163";
 //	private static final int PORT = 6389;
 	
 	private static JedisPool jp;
@@ -72,7 +72,7 @@ public class JedisTest {
 		jpc.setMaxIdle(50);
 		jpc.setMaxWait(5 * 1000);
 		
-		JedisPool jp = new JedisPool("10.10.82.80", 6380);
+		JedisPool jp = new JedisPool("179.30.82.80", 6380);
 		int count = 200;
 		for(int i = 0; i < count;i++){
 			try {
@@ -391,9 +391,9 @@ public class JedisTest {
 		jpc.setMaxIdle(50);
 		jpc.setMaxWait(5 * 1000);
 		
-		String host = "10.10.82.80";
-//		String host = "10.10.52.181";
-//		String host = "10.10.52.200";
+		String host = "179.30.82.80";
+//		String host = "179.30.52.181";
+//		String host = "179.30.52.200";
 		int port = 6388;
 		JedisPool jp = new JedisPool(host, port);
 		for(int i = 0;;i++){
@@ -422,10 +422,10 @@ public class JedisTest {
 		jpc.setMaxWait(5 * 1000);
 		
 		List<String> hostList = new ArrayList<String>();
-		hostList.add("10.10.77.156");
-		hostList.add("10.10.76.126");
-		hostList.add("10.16.12.94");
-		hostList.add("10.10.76.154");
+		hostList.add("179.30.77.156");
+		hostList.add("179.30.76.126");
+		hostList.add("179.36.12.94");
+		hostList.add("179.30.76.154");
 		hostList.add("192.168.99.164");
 		
 		int port = 6388;
@@ -472,13 +472,13 @@ public class JedisTest {
 		jpc.setMaxWait(5 * 1000);
 		
 		List<String> hostList = new ArrayList<String>();
-//		hostList.add("10.10.52.184");
-//		hostList.add("10.10.53.56");
-//		hostList.add("10.16.15.136");
-//		hostList.add("10.10.76.122");
-//		hostList.add("10.16.15.129");
-//		hostList.add("10.11.52.194");
-		hostList.add("10.10.52.163");
+//		hostList.add("179.30.52.184");
+//		hostList.add("179.30.53.56");
+//		hostList.add("179.36.15.136");
+//		hostList.add("179.30.76.122");
+//		hostList.add("179.36.15.129");
+//		hostList.add("179.31.52.194");
+		hostList.add("179.30.52.163");
 		
 		List<Long> vids = new ArrayList<Long>();
 //		vids.add(1629779L);
@@ -543,7 +543,7 @@ public class JedisTest {
 		jpc.setMaxIdle(50);
 		jpc.setMaxWait(5 * 1000);
 		
-		JedisPool jp = new JedisPool(jpc, "10.10.77.159", 6388);
+		JedisPool jp = new JedisPool(jpc, "179.30.77.159", 6388);
 		Jedis j = null;
 		long start = 0;
 		long duration = 0;
@@ -632,7 +632,7 @@ public class JedisTest {
 	
 	@Test
 	public void testMget(){
-		JedisPool jp = new JedisPool( "10.10.77.159", 6388);
+		JedisPool jp = new JedisPool( "179.30.77.159", 6388);
 		Jedis j = jp.getResource();
 		int len = 2;
 		String[] keys = new String[len];

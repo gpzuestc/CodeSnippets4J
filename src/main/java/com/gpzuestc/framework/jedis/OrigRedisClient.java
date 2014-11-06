@@ -41,7 +41,7 @@ public class OrigRedisClient {
 	public static void main(String[] argx) throws Exception {
 
 		//
-		String host = "10.1.104.167";
+		String host = "179.3.104.167";
 		int port = 6379;
 
 		Socket socket = new Socket();

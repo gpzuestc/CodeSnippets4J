@@ -21,7 +21,7 @@ public class KeptTest {
 	private static ZooKeeper zk = null;
 	@BeforeClass
 	public static void setUp() throws Exception{
-		zk = new ZooKeeper("10.16.12.21:2181,10.16.12.22:2181", 3000, null);
+		zk = new ZooKeeper("179.36.12.21:2181,179.36.12.22:2181", 3000, null);
 	}
 	
 	@Test

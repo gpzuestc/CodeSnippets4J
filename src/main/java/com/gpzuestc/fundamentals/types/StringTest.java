@@ -1,5 +1,8 @@
 package com.gpzuestc.fundamentals.types;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -126,12 +129,13 @@ public class StringTest {
 	}
 	
 	@Test
-	public void testFormat(){
+	public void testFormat() throws UnsupportedEncodingException{
 		String[] list = new String[2]; //不能用List
 		System.out.println(list.length);
 		list[0] = "a";
 		list[1] = "bbb";
 		System.out.println(String.format("2%s111%s6", list));
+		System.out.println(URLDecoder.decode("%E9%9B%B7%E4%BA%BA%E6%97%A5%E8%AE%B0BOX", "utf-8"));
 	}
 	
 	
@@ -145,7 +149,7 @@ public class StringTest {
 	@Test
 	public void testUnicodeLength(){
 //		String str = "%u0073";
-		String str = "searchVideoByKeyword-http://search.ns.hd.sohuno.com/jsvm?wd=&p=1&s=50&t=1&plat=6";
+		String str = "searchVideoByKeyword-http://search.ns.hd.com/jsvm?wd=&p=1&s=50&t=1&plat=6";
 		System.out.println(str.length());
 	}
 	

@@ -27,8 +27,8 @@ public class BasicJedisDemo {
 	
 	
 	private static final int PORT = 6388;
-//	private static final String HOST = "10.1.36.194";
-	private static final String HOST = "10.10.52.163";
+//	private static final String HOST = "179.3.36.194";
+	private static final String HOST = "179.30.52.163";
 //	private static final int PORT = 6389;
 	
 	private static JedisPool jp;
@@ -39,7 +39,7 @@ public class BasicJedisDemo {
 	
 	@Test
 	public void testConnect(){
-		Jedis jedis = new Jedis("10.13.87.66", 22121);
+		Jedis jedis = new Jedis("179.33.87.66", 22121);
 		jedis.connect();
 		System.out.println(1);
 		System.out.println(jedis.get("a"));
@@ -51,7 +51,7 @@ public class BasicJedisDemo {
 		config.setMaxActive(256);
 		config.setMaxIdle(100);
 		config.setMaxWait(100l);
-		JedisPool jp = new JedisPool(config, "10.13.87.67", 22121,5000);
+		JedisPool jp = new JedisPool(config, "179.33.87.67", 22121,5000);
 		Jedis jedis = jp.getResource();
 		System.out.println(jedis);
 		System.out.println(jedis.get("b"));
@@ -62,7 +62,7 @@ public class BasicJedisDemo {
 	@Test
 	public void testJedisCluster()throws Exception{
 //		String host = HOST;
-		String host = "10.10.82.80";
+		String host = "179.30.82.80";
 		JedisShardInfo shardinfo = new JedisShardInfo(host, 6388);
 		JedisShardInfo shardinfo1 = new JedisShardInfo(host, 6380);
 		List<JedisShardInfo> shards = new ArrayList<JedisShardInfo>();
@@ -193,7 +193,7 @@ public class BasicJedisDemo {
 		jpc.setMaxIdle(50);
 		jpc.setMaxWait(5 * 1000);
 		
-		String host = "10.10.76.100";
+		String host = "179.30.76.100";
 		int port = 6379;
 //		JedisPool jp = new JedisPool(host, port);
 		
@@ -387,7 +387,7 @@ public class BasicJedisDemo {
 //	@Test
 //	public void test() throws Exception{
 		
-		String host = "10.10.82.80";
+		String host = "179.30.82.80";
 		int port = 6300;
 		
 		//data 

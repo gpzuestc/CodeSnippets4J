@@ -25,14 +25,14 @@ public class XmemcachedTest {
 	@Test
 	public void testCluterFailover() throws IOException, TimeoutException, InterruptedException, MemcachedException{
 		int count = 20;
-		String addrs = "10.10.77.156:11211 10.10.77.159:11212";
-//		String addrs = "10.10.77.159:11211";
+		String addrs = "179.30.77.156:11211 179.30.77.159:11212";
+//		String addrs = "179.30.77.159:11211";
 		MemcachedClientBuilder builder = new XMemcachedClientBuilder(addrs);
 		MemcachedClient c = builder.build();
 		String key = "c";
 		
 		/**
-		 * step 1: kill 10.10.77.159:11212 when i = 9
+		 * step 1: kill 179.30.77.159:11212 when i = 9
 		 */
 		for(int i = 0 ; i < count; i++){
 			c.add(key + i, 60, "aaaa" + i);
@@ -42,7 +42,7 @@ public class XmemcachedTest {
 		}
 		
 		
-//		addrs = "10.10.77.156:11211";
+//		addrs = "179.30.77.156:11211";
 //		builder = new XMemcachedClientBuilder(addrs);
 //		c = builder.build();
 		for(int i = 0; i< count; i++){
@@ -65,48 +65,48 @@ public class XmemcachedTest {
 	/**
 	 * 
 0
-;10.10.77.159:11212(weight=1);10.10.77.156:11211(weight=1);
+;179.30.77.159:11212(weight=1);179.30.77.156:11211(weight=1);
 1
-;10.10.77.159:11212(weight=1);10.10.77.156:11211(weight=1);
+;179.30.77.159:11212(weight=1);179.30.77.156:11211(weight=1);
 2
-;10.10.77.159:11212(weight=1);10.10.77.156:11211(weight=1);
+;179.30.77.159:11212(weight=1);179.30.77.156:11211(weight=1);
 3
-;10.10.77.159:11212(weight=1);10.10.77.156:11211(weight=1);
+;179.30.77.159:11212(weight=1);179.30.77.156:11211(weight=1);
 4
-;10.10.77.159:11212(weight=1);10.10.77.156:11211(weight=1);
+;179.30.77.159:11212(weight=1);179.30.77.156:11211(weight=1);
 5
-;10.10.77.159:11212(weight=1);10.10.77.156:11211(weight=1);
+;179.30.77.159:11212(weight=1);179.30.77.156:11211(weight=1);
 6
-;10.10.77.159:11212(weight=1);10.10.77.156:11211(weight=1);
+;179.30.77.159:11212(weight=1);179.30.77.156:11211(weight=1);
 7
-;10.10.77.159:11212(weight=1);10.10.77.156:11211(weight=1);
+;179.30.77.159:11212(weight=1);179.30.77.156:11211(weight=1);
 8
-;10.10.77.159:11212(weight=1);10.10.77.156:11211(weight=1);
+;179.30.77.159:11212(weight=1);179.30.77.156:11211(weight=1);
 9
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 10
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 11
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 12
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 13
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 14
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 15
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 16
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 17
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 18
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 19
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 
 
-;10.10.77.156:11211(weight=1);
+;179.30.77.156:11211(weight=1);
 c0:null
 c1:aaaa1
 c2:null
@@ -129,7 +129,7 @@ c18:aaaa18
 c19:aaaa19
 
 
-;10.10.77.159:11212(weight=1);10.10.77.156:11211(weight=1);
+;179.30.77.159:11212(weight=1);179.30.77.156:11211(weight=1);
 c0:null
 c1:aaaa1
 c2:null
@@ -163,7 +163,7 @@ c19:null
 	
 	@Test
 	public void testOverSave() throws IOException, TimeoutException, InterruptedException, MemcachedException{
-		String addr = "10.10.53.81:11211";
+		String addr = "179.30.53.81:11211";
 		MemcachedClientBuilder builder = new XMemcachedClientBuilder(AddrUtil.getAddresses(addr));
 		MemcachedClient c = builder.build();
 		String key = "abc";
@@ -196,7 +196,7 @@ c19:null
 	
 	@Test
 	public void testSet() throws IOException, TimeoutException, InterruptedException, MemcachedException{
-		String addr = "10.10.53.81:11211";
+		String addr = "179.30.53.81:11211";
 		MemcachedClientBuilder builder = new XMemcachedClientBuilder(AddrUtil.getAddresses(addr));
 		MemcachedClient c = builder.build();
 		String key = "abc";
@@ -206,11 +206,9 @@ c19:null
 	
 	@Test
 	public void testGet() throws IOException, TimeoutException, InterruptedException, MemcachedException{
-		String addr = "10.10.77.159:11211";
+		String addr = "179.30.77.159:11211";
 		MemcachedClientBuilder builder = new XMemcachedClientBuilder(AddrUtil.getAddresses(addr));
 		MemcachedClient c = builder.build();
-		System.out.println(c.get("http://s.sohuno.com:8080/stream/stream/video?stream_id=3&max_id=20&min_id=1&pull_down=1&page_size=2"));;
-//		System.out.println(c.get("http://re.sohuno.com:7777/recommend/recommend_simple?&vid=0&cid=1300&pageNum=1&pageSize=20"));;
 	}
 	
 	
@@ -218,11 +216,11 @@ c19:null
 	public void testDel() throws TimeoutException, InterruptedException, MemcachedException, IOException{
 		
 		List<String> hostList = new ArrayList<String>();
-		hostList.add("10.10.52.189");
-		hostList.add("10.10.53.173");
-		hostList.add("10.16.15.130");
-		hostList.add("10.10.53.181");
-		hostList.add("10.16.15.144");
+		hostList.add("179.30.52.189");
+		hostList.add("179.30.53.173");
+		hostList.add("179.36.15.130");
+		hostList.add("179.30.53.181");
+		hostList.add("179.36.15.144");
 		
 		for(String host : hostList){
 			String addr = host + ":11211";
@@ -237,9 +235,9 @@ c19:null
 	public void testDelV4() throws TimeoutException, InterruptedException, MemcachedException, IOException{
 		
 		List<String> hostList = new ArrayList<String>();
-		hostList.add("10.10.76.125");
-		hostList.add("10.10.76.149");
-		hostList.add("10.16.12.90");
+		hostList.add("179.30.76.125");
+		hostList.add("179.30.76.149");
+		hostList.add("179.36.12.90");
 		hostList.add("192.168.99.159");
 		
 		for(String host : hostList){
