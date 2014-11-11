@@ -353,29 +353,35 @@
 			<artifactId>activemq-pool</artifactId>
 			<version>5.10.0</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jms</artifactId>
 			<version>4.1.0.RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-framework</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+
 	</dependencies>
 
 
-<!-- 	<repositories> -->
-<!-- 		<repository> -->
-<!-- 			<id>Nexus</id> -->
-<!-- 			<name>Nexus Public Repository</name> -->
-<!-- 			<url>http://maven.t.sohu.com/nexus/content/groups/public</url> -->
-<!-- 		</repository> -->
-<!-- 		<repository> -->
-<!-- 			<id>nexus-snapshots</id> -->
-<!-- 			<name>Nexus Snapshot Repository</name> -->
-<!-- 			<url>http://maven.t.sohu.com/nexus/content/repositories/snapshots</url> -->
-<!-- 			<snapshots> -->
-<!-- 				<enabled>true</enabled> -->
-<!-- 			</snapshots> -->
-<!-- 		</repository> -->
-<!-- 	</repositories> -->
+	<!-- <repositories> -->
+	<!-- <repository> -->
+	<!-- <id>Nexus</id> -->
+	<!-- <name>Nexus Public Repository</name> -->
+	<!-- <url>http://maven.t.sohu.com/nexus/content/groups/public</url> -->
+	<!-- </repository> -->
+	<!-- <repository> -->
+	<!-- <id>nexus-snapshots</id> -->
+	<!-- <name>Nexus Snapshot Repository</name> -->
+	<!-- <url>http://maven.t.sohu.com/nexus/content/repositories/snapshots</url> -->
+	<!-- <snapshots> -->
+	<!-- <enabled>true</enabled> -->
+	<!-- </snapshots> -->
+	<!-- </repository> -->
+	<!-- </repositories> -->
 </project>
