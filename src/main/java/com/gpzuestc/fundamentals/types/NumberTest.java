@@ -14,7 +14,13 @@ public class NumberTest {
 	public void testMax(){
 		System.out.println(Long.MAX_VALUE);  //   2^(8*8-1) = 9223372036854775807
 		System.out.println(Integer.MAX_VALUE); // 2^(4*8-1) = 2147483647
-		System.out.println((24 * 3600 * 1000 * 100));
+		System.out.println((24 * 3600 * 1000 * 100)); //8640000000 but 50065408
+		testLongArg(24 * 3600 * 1000 * 100* 100L); //5006540800
+		testLongArg(24L * 3600 * 1000 * 100* 100); //864000000000 
+	}
+	
+	private void testLongArg(Long arg){
+		System.out.println(arg);
 	}
 	
 	@Test
