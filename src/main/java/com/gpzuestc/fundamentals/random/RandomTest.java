@@ -86,6 +86,12 @@ public class RandomTest {
 			}).start();
 		}
 	}
+	
+	@Test
+	public void testRandomIntZero(){
+		System.out.println(new Random().nextInt(0)); // java.lang.IllegalArgumentException: n must be positive
+
+	}
 }
 
 
