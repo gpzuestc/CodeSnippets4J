@@ -37,7 +37,7 @@ public class JedisTest {
 	private static Jedis j;
 	
 	private static int errorCount = 0;
-	@BeforeClass
+//	@BeforeClass
 	public static void beforeClass(){
 		jp = new JedisPool(HOST, PORT);
 		j = jp.getResource();
@@ -543,15 +543,17 @@ public class JedisTest {
 		jpc.setMaxIdle(50);
 		jpc.setMaxWait(5 * 1000);
 		
-		JedisPool jp = new JedisPool(jpc, "179.30.77.159", 6388);
+//		JedisPool jp = new JedisPool(jpc, "179.30.77.159", 6388);
+		JedisPool jp = new JedisPool(jpc, "10.10.77.159", 6388, 60000);
 		Jedis j = null;
 		long start = 0;
 		long duration = 0;
 		List list = null;
 		Pipeline pip = null;
 		
-//		int keyLen = uids.size();
-		int keyLen = 500;
+//		int keyLen = uids.size() / 4;
+		int keyLen = 1000;
+		System.out.println("list size:" + keyLen);
 		
 		//pip save;
 		j = jp.getResource();
@@ -562,7 +564,7 @@ public class JedisTest {
 		}
 		pip.sync();
 		duration = System.currentTimeMillis() - start;
-		System.out.println("save time:" + duration + "ms");
+		System.out.println("pip save time:" + duration + "ms");
 		jp.returnResource(j);
 		
 		//mset 
@@ -578,6 +580,15 @@ public class JedisTest {
 		System.out.println("mset time:" + duration + "ms");
 		jp.returnResource(j);
 		
+		//loop set
+		j = jp.getResource();
+		start = System.currentTimeMillis();
+		for(int i = 0; i < keyLen; i++){
+			j.set("gpz" + i, uids.get(i));
+		}
+		duration = System.currentTimeMillis() - start;
+		System.out.println("loop save time:" + duration + "ms");
+		jp.returnResource(j);
 		
 		//pip get
 		j = jp.getResource();
@@ -589,13 +600,12 @@ public class JedisTest {
 		list = pip.syncAndReturnAll();
 		duration = System.currentTimeMillis() - start;
 		System.out.println("pip get time:" + duration + "ms");
-		System.out.println("list size:" + list.size());
+		
 		jp.returnResource(j);
 		
 		//mget 
 		j = jp.getResource();
 //		String[] keys = new String[uids.size()];
-		System.out.println(keyLen);
 		String[] keys = new String[keyLen];
 		for(int i = 0; i < keyLen; i++){
 			keys[i] = "gpz" + i;
@@ -604,6 +614,17 @@ public class JedisTest {
 		List<String> values = j.mget(keys);
 		duration = System.currentTimeMillis() - start;
 		System.out.println("mget time:" + duration + "ms");
+		jp.returnResource(j);
+		
+		
+		//loop get
+		j = jp.getResource();
+		start = System.currentTimeMillis();
+		for(int i = 0; i < keyLen; i++){
+			j.get("gpz" + i);
+		}
+		duration = System.currentTimeMillis() - start;
+		System.out.println("loop get time:" + duration + "ms");
 		jp.returnResource(j);
 		
 		start = System.currentTimeMillis();
@@ -617,8 +638,16 @@ public class JedisTest {
 //		System.out.println("遍历time:" + duration + "ms");
 		
 	}
-	
-	/**
+	/*
+	list size:1000
+	pip save time:62ms
+	mset time:16ms
+	loop save time:2833ms
+	pip get time:30ms
+	mget time:25ms
+	loop get time:5398ms
+	*/
+	/*
 	 * 数据量小的情况下，mget性能要好于pipline
 	 * 数据量大的情况下，相差不多
 	 * pip get time:5594ms
@@ -629,6 +658,7 @@ public class JedisTest {
 	   list size:500
        mget time:15ms
 	 */
+	
 	
 	@Test
 	public void testMget(){
@@ -641,5 +671,39 @@ public class JedisTest {
 		}
 		List<String> list = j.mget(keys);
 		System.out.println(list.get(0));
+	}
+	
+	@Test
+	public void testMgetOfTwemprxoy(){
+		System.out.println("1");
+//		JedisPool jp = new JedisPool( "10.13.87.66", 22121);
+		JedisPool jp = new JedisPool( "10.10.77.159", 22121);
+//		JedisPool jp = new JedisPool( "10.10.77.156", 22121);
+//		JedisPool jp = new JedisPool( "10.13.87.68", 6388);
+		Jedis j = jp.getResource();
+		System.out.println(j.get("a"));
+		System.out.println(j.mget("ae","be"));
+		System.out.println(j.mset("ae","aaa", "be", "bbb"));
+		System.out.println(j.mget("ae", "be"));
+//		List<String> list = j.mget(keys);
+//		System.out.println(list.get(0));
+	}
+	
+	@Test
+	public void testPiplineOfTwemprxoy(){
+		System.out.println("1");
+		JedisPool jp = new JedisPool( "10.13.87.66", 22121);
+//		JedisPool jp = new JedisPool( "10.13.87.68", 6388);
+		Jedis j = jp.getResource();
+		Pipeline pip = j.pipelined();
+//		System.out.println(j.mget("aa{}","dd{}"));
+//		System.out.println(j.mset("{a}","aaa", "{b}", "bbb"));
+//		System.out.println(j.mget("aa{a}", "bb{b}"));
+		System.out.println(pip.get("a"));
+		System.out.println(pip.set("be", "adb"));
+		System.out.println(pip.get("be"));
+		System.out.println(pip.syncAndReturnAll());
+//		List<String> list = j.mget(keys);
+//		System.out.println(list.get(0));
 	}
 }
