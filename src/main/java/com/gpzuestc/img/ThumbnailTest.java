@@ -13,7 +13,6 @@ import java.io.OutputStream;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
-import javax.swing.JLabel;
 
 import net.coobird.thumbnailator.Thumbnailator;
 import net.coobird.thumbnailator.Thumbnails;
@@ -49,14 +48,37 @@ public class ThumbnailTest {
 
 		@Test
 		public void testResize() throws Exception{
-//			Thumbnails.of(new URL("http://ww1.sinaimg.cn/mw690/70b6b917jw1drx80m8suuj.jpg"))
+			Thumbnails.of(new URL("http://ww1.sinaimg.cn/mw690/70b6b917jw1drx80m8suuj.jpg"))
 //			Thumbnails.of(new URL("http://r4.mp.itc.cn/image/out/load/935f48f9-c8e1-4541-91b8-75a771467720.jpg"))
 //			Thumbnails.of(new URL("http://r7.mp.itc.cn/image/out/load/f9efeed7-8fe8-4ef5-a96b-023962724a5b.jpg"))
-			Thumbnails.of(new File("/Users/gpzuestc/Desktop/web2.jpg"))
-				.scale(0.5f)
+//			Thumbnails.of(new File("/Users/gpzuestc/Desktop/web2.jpg"))
+//				.scale(0.5f)
+				.width(160)
 				.outputQuality(1.0f)
 				.imageType(BufferedImage.TYPE_INT_RGB)
-				.toFile("/Users/gpzuestc/Desktop/web.jpg");
+//				.sourceRegion(Positions.CENTER, 160, 160)
+				.toFile("/Users/gpzuestc/Desktop/web1.jpg");
+		}
+		
+		@Test
+		public void testResizeAndCorp() throws Exception{
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			Thumbnails.of(new URL("http://ww1.sinaimg.cn/mw690/70b6b917jw1drx80m8suuj.jpg"))
+//			Thumbnails.of(new URL("http://r4.mp.itc.cn/image/out/load/935f48f9-c8e1-4541-91b8-75a771467720.jpg"))
+//			Thumbnails.of(new URL("http://r7.mp.itc.cn/image/out/load/f9efeed7-8fe8-4ef5-a96b-023962724a5b.jpg"))
+//			Thumbnails.of(new File("/Users/gpzuestc/Desktop/web2.jpg"))
+//				.scale(0.5f)
+				.width(160)
+				.outputQuality(1.0f)
+				.imageType(BufferedImage.TYPE_INT_RGB)
+//				.sourceRegion(Positions.CENTER, 160, 160)
+				.toOutputStream(baos);
+//				.toFile("/Users/gpzuestc/Desktop/web1.jpg");
+			
+			Thumbnails.of(new ByteArrayInputStream(baos.toByteArray()))
+			.scale(1.0f)
+			.sourceRegion(Positions.CENTER, 160, 160)
+			.toFile("/Users/gpzuestc/Desktop/web1.jpg");
 		}
 		
 		@Test

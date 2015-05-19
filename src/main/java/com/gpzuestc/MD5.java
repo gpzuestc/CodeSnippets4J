@@ -39,4 +39,8 @@ public class MD5
         }
         return hexString.toString();
     }
+    
+    public static void main(String[] args) {
+		System.out.println(crypt("1"));
+	}
 }

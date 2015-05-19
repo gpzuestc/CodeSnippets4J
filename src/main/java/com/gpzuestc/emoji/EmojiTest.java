@@ -1,10 +1,6 @@
 package com.gpzuestc.emoji;
 
-import java.nio.charset.Charset;
-
 import org.junit.Test;
-
-import com.google.common.primitives.Bytes;
 
 /**
  * @author gpzuestc

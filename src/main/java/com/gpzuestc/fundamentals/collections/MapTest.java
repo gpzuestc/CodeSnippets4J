@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
@@ -145,6 +144,22 @@ public class MapTest {
 		for(Entry<String, Integer> entry : map.entrySet()){
 			System.out.println(entry.getKey() + ":" + entry.getValue()); 
 		}
+	}
+	
+	@Test
+	public void testTreeMapRange(){
+		TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
+		map.put(800, 0);
+		map.put(1000, 2);
+		map.put(1100, 4);
+		System.out.println(map.get(map.tailMap(900).firstKey()));
+		System.out.println(map.get(map.tailMap(600).firstKey()));
+		System.out.println(map.get(map.tailMap(800, false).firstKey()));
+		System.out.println(map.get(map.tailMap(1050).firstKey()));
+		System.out.println(map.get(map.tailMap(1000).firstKey()));
+		System.out.println(map.get(map.tailMap(1100).firstKey()));
+//		System.out.println(map.get(map.tailMap(1105).firstKey()));
+		
 	}
 }
 

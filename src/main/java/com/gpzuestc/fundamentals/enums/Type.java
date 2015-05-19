@@ -3,8 +3,6 @@ package com.gpzuestc.fundamentals.enums;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
-
 /**
  * @author gpzuestc
  * @mail: guopengzhang@sohu-inc.com

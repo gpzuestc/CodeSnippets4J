@@ -2,7 +2,6 @@ package com.gpzuestc.fundamentals.types;
 
 import java.math.BigInteger;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.junit.Test;
 
 /**

@@ -12,6 +12,7 @@ import net.sf.json.JSONArray;
 import org.junit.Test;
 
 import com.gpzuestc.User;
+import com.gpzuestc.util.JsonUtil;
 
 /**
  * @author gpzuestc
@@ -357,5 +358,13 @@ public class ListTest {
 		System.out.println(list.get(0).getName());
 		u = null;
 		System.out.println(list.get(0));
+	}
+	
+	@Test
+	public void testInsert(){
+		List<String> list = new ArrayList<String>();
+		list.add("a");
+		list.add(0, "bb");
+		System.out.println(JsonUtil.toJSONString(list));
 	}
 }

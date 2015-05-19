@@ -1,6 +1,7 @@
 package com.gpzuestc.fundamentals.date;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,6 +12,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
+
+import com.gpzuestc.util.JsonUtil;
 
 /**
  * @author gpzuestc
@@ -136,5 +139,31 @@ public class DateTest {
 	2014-12-07 15:31:34
 	*/
 
+	@Test
+	public void test(){
+//		System.out.println(1000000000L / (3600000L * 24L));
+		System.out.println(System.currentTimeMillis() - 45L * (3600000L * 24L * 365L));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date date = sdf.parse("2015-01-01");
+			Long base = date.getTime();
+			System.out.println(base);
+			Long result = System.currentTimeMillis() - base;
+			System.out.println(result);
+			System.out.println(Long.toHexString(result));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(Long.toHexString(System.currentTimeMillis()));
+		System.out.println(47301246000L / (1L * 3600000L * 24L * 30L));
+	}
 	
+	
+	@Test
+	public void test0(){
+		Date date = new Date(0L);
+		System.out.println(JsonUtil.toJSONString(date));
+	}
 }

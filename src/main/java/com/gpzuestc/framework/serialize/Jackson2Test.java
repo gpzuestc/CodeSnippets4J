@@ -1,14 +1,13 @@
 package com.gpzuestc.framework.serialize;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
+import org.apache.commons.io.FileUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Test;
@@ -385,6 +384,10 @@ public class Jackson2Test {
 	}
 	
 	
-//	@Test
-//	public void
+	@Test
+	public void test8() throws Exception{
+		String jsonStr = FileUtils.readFileToString(new File("/Users/gpzuestc/Desktop/hi"));
+		CardVO card = m.readValue(jsonStr, CardVO.class);
+		System.out.println(card.card.discount.base_info);
+	}
 }

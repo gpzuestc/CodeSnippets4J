@@ -81,7 +81,24 @@
         class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
         <property name="sessionFactory" ref="localSessionFactory" />  
     </bean>  
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="load*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+<!-- 			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/> -->
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
 	
+	<aop:config>
+		<aop:pointcut id="serviceOperation"
+			expression="execution(public * com.gpzuestc.framework.hibernate.dao..*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
+	</aop:config>
 	
 	
 </beans>

@@ -1,10 +1,14 @@
 package com.gpzuestc.fundamentals.random;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Test;
 
 /**
@@ -37,10 +41,14 @@ public class RandomTest {
 		return indexSet;
 	}
 
-	@Test
-	public void testUUID(){
+	
+	public static void main(String[] args) {
+//		public void testUUID(){
+		
 		UUID uuid = UUID.randomUUID();
 		System.out.println(uuid);
+		System.out.println(uuid.toString().replaceAll("-", ""));
+//		System.out.println(uuid.toString().replaceAll("-", "").toUpperCase());
 	}
 	
 	@Test
@@ -51,12 +59,12 @@ public class RandomTest {
 		}
 	}
 	
-	public static void main(String[] args) throws Exception {
-		Set<Integer> set = getNoDuplicateRandomInt(9, 10);
-		for(Integer i : set){
-			System.out.println(i);
-		}
-	}
+//	public static void main(String[] args) throws Exception {
+//		Set<Integer> set = getNoDuplicateRandomInt(9, 10);
+//		for(Integer i : set){
+//			System.out.println(i);
+//		}
+//	}
 	
 	@Test
 	public void testRandomStr(){
@@ -91,6 +99,33 @@ public class RandomTest {
 	public void testRandomIntZero(){
 		System.out.println(new Random().nextInt(0)); // java.lang.IllegalArgumentException: n must be positive
 
+	}
+	
+	@Test
+	public void testGenUUID(){
+		int count = 12;
+		List<String> uuids = new ArrayList<String>();
+		for(int i = 0 ; i < count; i++){
+			UUID uuid = UUID.randomUUID();
+			String str = uuid.toString().replaceAll("-", "").toUpperCase();
+			uuids.add(str);
+			System.out.println("http://hello.xianlaohu.com/xxxxx/" + str);
+		}
+		
+		for(int i = 0 ; i < uuids.size(); i++){
+			System.out.println(uuids.get(i));
+		}
+	}
+	
+	@Test
+	public void testRandomUtil(){
+		System.out.println(RandomUtils.nextInt(0, 2));
+		System.out.println(RandomStringUtils.randomAlphabetic(10));
+		System.out.println(RandomStringUtils.randomAlphanumeric(10));
+		System.out.println(RandomStringUtils.randomAscii(10));
+		System.out.println(RandomStringUtils.randomNumeric(10));
+		
+		System.out.println(RandomUtils.nextLong(1, 3));
 	}
 }
 

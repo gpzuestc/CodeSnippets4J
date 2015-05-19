@@ -30,4 +30,13 @@ public class IntegerTest {
 		System.out.println(Math.abs(Integer.MIN_VALUE));
 	}
 	
+	@Test
+	public void testInteger(){
+		Integer a = 1;
+		Integer b = 2;
+		Integer c = ++a;
+		
+		System.out.println(c == b); //true
+	}
+	
 }

@@ -60,4 +60,14 @@ public class LongTest {
 		如果定义参数long的方法，则很容易误传这样的值！！
 		**/
 	}
+	
+	@Test
+	public void testEquals(){
+		Long a = 127L;
+		Long b = 127L;
+		Long c = 128L;
+		Long d = 128L;
+		System.out.println(a == b);
+		System.out.println(c == d);
+	}
 }

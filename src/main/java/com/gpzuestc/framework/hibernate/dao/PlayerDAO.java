@@ -25,4 +25,12 @@ public interface PlayerDAO {
 	List<Player> getPlayers();
 	
 	List<Player> getPlayersLefJoinFetch();
+	
+	Long savePlayer(Player player);
+	
+	
+	Object listContact();
+	
+	Object listTimeStamp();
+	
 }

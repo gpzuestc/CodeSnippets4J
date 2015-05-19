@@ -2,11 +2,11 @@ package com.gpzuestc.fundamentals.types;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 /**
@@ -125,7 +125,10 @@ public class StringTest {
 	@Test
 	public void testNull(){
 		System.out.println(null + "123");  //null123
+		Boolean a = null;
+		System.out.println(String.valueOf(a));
 		System.out.println(String.valueOf(null)); //NullPointerException
+		
 	}
 	
 	@Test
@@ -262,5 +265,12 @@ public class StringTest {
 		
 		System.out.println(subStringWithMore(str, 58));
 		
+	}
+	
+	@Test
+	public void testCompare(){
+		String a = "10:00";
+		String b = "11:00";
+		System.out.println(a.compareTo(b));
 	}
 }

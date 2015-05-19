@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gpzuestc.framework.hibernate.entity.Player;
 import com.gpzuestc.framework.hibernate.entity.PlayerBO;
+import com.gpzuestc.framework.hibernate.entity.PlayerConcatBO;
 
 /**
  * @author gpzuestc
@@ -149,6 +150,43 @@ public class PlayerDAOImpl implements PlayerDAO{
 				return (List<Player>)query.list();
 			}
 			
+		});
+	}
+
+	@Override
+	public Long savePlayer(Player player) {
+		return (Long)localHibernateTemplate.save(player);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object listContact() {
+		return localHibernateTemplate.execute(new HibernateCallback() {
+
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException {
+				String sql = "select t.id as teamId, t.name as teamName, GROUP_CONCAT(p.name) as players from team t left join player p on p.teamId=t.id group by t.id";
+				Query query = session.createSQLQuery(sql);
+				query.setResultTransformer(Transformers.aliasToBean(PlayerConcatBO.class));
+				return query.list();
+			}
+		});
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object listTimeStamp() {
+		return localHibernateTemplate.execute(new HibernateCallback() {
+
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException {
+				String hql = "select p.timestamp, unix_timestamp() from Player p ";
+				Query query = session.createQuery(hql);
+//				query.setResultTransformer(Transformers.aliasToBean(PlayerConcatBO.class));
+				return query.list();
+			}
 		});
 	}
 }

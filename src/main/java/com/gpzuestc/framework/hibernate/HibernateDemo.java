@@ -9,7 +9,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.gpzuestc.framework.hibernate.dao.PlayerDAO;
 import com.gpzuestc.framework.hibernate.entity.Player;
+import com.gpzuestc.framework.hibernate.entity.Team;
 import com.gpzuestc.util.ClassUtils;
+import com.gpzuestc.util.JsonUtil;
 
 /**
  * @author gpzuestc
@@ -32,6 +34,8 @@ public class HibernateDemo {
 	public void testGetEntity(){
 		Player player = playerDAO.get(1L);
 		System.out.println(player.getName());
+		System.out.println(player.getTeam());
+		System.out.println(player.getTeamId());
 		player.setName("Pirlo1");
 		System.out.println(player.getName());
 		
@@ -70,5 +74,36 @@ public class HibernateDemo {
 		List<Player> list = playerDAO.getPlayersLefJoinFetch();
 		System.out.println(list.size());
 		System.out.println(list.get(0).getTeam().getName());
+		System.out.println(list.get(0).getTeamId());
+	}
+	
+	@Test
+	public void testCreatePlayer(){
+//		Player player = new Player();
+//		player.setName("guopeng");
+//		Team team = new Team();
+//		team.setId(1L);
+//		player.setTeam(team);
+//		System.out.println(playerDAO.savePlayer(player));
+		
+		Player player = new Player();
+		player.setName("guopeng");
+		player.setTestBoolean(true);
+		Team team = new Team();
+		team.setId(2L);
+		team.setName("teamaa");
+		player.setTeam(team);
+		System.out.println(playerDAO.savePlayer(player));
+	}
+	
+	@Test
+	public void testConcat(){
+		Object obj = playerDAO.listContact();
+		System.out.println(JsonUtil.toJSONString(obj));
+	}
+	
+	@Test
+	public void testTime(){
+		System.out.println(JsonUtil.toJSONString(playerDAO.listTimeStamp()));
 	}
 }

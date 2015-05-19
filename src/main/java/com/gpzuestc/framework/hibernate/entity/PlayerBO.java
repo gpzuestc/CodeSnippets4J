@@ -9,22 +9,14 @@ package com.gpzuestc.framework.hibernate.entity;
  */
 public class PlayerBO {
 	
-	private Long id;
-	private String name;
-	private Long teamId;
 	private String teamName;
-	
-	public Long getId() {
-		return id;
+	private Long teamId;
+	private String players;
+	public String getTeamName() {
+		return teamName;
 	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}
 	public Long getTeamId() {
 		return teamId;
@@ -32,11 +24,12 @@ public class PlayerBO {
 	public void setTeamId(Long teamId) {
 		this.teamId = teamId;
 	}
-	public String getTeamName() {
-		return teamName;
+	public String getPlayers() {
+		return players;
 	}
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
+	public void setPlayers(String players) {
+		this.players = players;
 	}
+	
 	
 }

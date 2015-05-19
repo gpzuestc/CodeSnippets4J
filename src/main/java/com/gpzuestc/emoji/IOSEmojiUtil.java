@@ -1,6 +1,7 @@
 package com.gpzuestc.emoji;
 
 import java.io.UnsupportedEncodingException;
+
 import org.apache.commons.lang.StringUtils;
 
 

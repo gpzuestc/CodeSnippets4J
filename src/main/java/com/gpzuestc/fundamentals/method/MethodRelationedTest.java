@@ -1,7 +1,5 @@
 package com.gpzuestc.fundamentals.method;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 
 /**
