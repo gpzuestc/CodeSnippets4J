@@ -2,6 +2,9 @@ package com.gpzuestc.fundamentals.exceptions;
 
 import java.io.FileInputStream;
 
+import org.junit.Test;
+import org.springframework.util.Assert;
+
 
 /**
  * @author gpzuestc
@@ -38,6 +41,16 @@ public class ExceptionTest {
 	
 	public static void throwRuntimeExceptionMethod(){ //非常严重的错误，上层调用者可以不感知该异常，并且线程会立即停止，不会继续执行。
 		throw new RuntimeException("A runtime exception was throwed;");
+	}
+	
+	
+	@Test
+	public void testAssert()
+	{
+		Integer a = 1;
+		System.out.println(1);
+		assert(a>1);
+		System.out.println(a>1);
 	}
 	
 //	public static void main(String[] args){

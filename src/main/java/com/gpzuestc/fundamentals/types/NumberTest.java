@@ -47,4 +47,11 @@ public class NumberTest {
 		System.out.println(b == c);
 		System.out.println(c == d);
 	}
+	
+	
+	@Test
+	public void testFloat(){
+		System.out.println(2.00 - 1.10); 
+		System.out.println(String.format("%.2f", 2.00 - 1.10)); 
+	}
 }

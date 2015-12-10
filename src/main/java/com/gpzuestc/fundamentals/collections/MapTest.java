@@ -99,6 +99,7 @@ public class MapTest {
 		str.indexOf("e");
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testListOrderedMap(){
 		Map<String, String> map = new HashMap<String, String>();
@@ -160,6 +161,19 @@ public class MapTest {
 		System.out.println(map.get(map.tailMap(1100).firstKey()));
 //		System.out.println(map.get(map.tailMap(1105).firstKey()));
 		
+	}
+	
+	@Test
+	public void testMapNull(){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("000", "aaa");
+		map.put("111", null);
+		map.put(null, "222");
+		
+		for(Map.Entry<String, String> entry : map.entrySet()){
+			System.out.println(entry.getKey());
+			System.out.println(entry.getValue());
+		}
 	}
 }
 

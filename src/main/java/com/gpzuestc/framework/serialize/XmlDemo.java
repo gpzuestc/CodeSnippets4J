@@ -8,6 +8,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.gpzuestc.util.JsonUtil;
+import com.gpzuestc.util.XStreamUtil;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -45,6 +46,9 @@ public class XmlDemo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		ComponentXml componentXml = XStreamUtil.toBean(xmlStr, ComponentXml.class);
+		System.out.println(JsonUtil.toJSONString(componentXml));
 		
 	}
 }

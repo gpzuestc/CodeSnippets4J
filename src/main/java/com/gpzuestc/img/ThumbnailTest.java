@@ -48,12 +48,13 @@ public class ThumbnailTest {
 
 		@Test
 		public void testResize() throws Exception{
-			Thumbnails.of(new URL("http://ww1.sinaimg.cn/mw690/70b6b917jw1drx80m8suuj.jpg"))
+//			Thumbnails.of(new URL("http://ww1.sinaimg.cn/mw690/70b6b917jw1drx80m8suuj.jpg"))
+			Thumbnails.of(new URL("http://mmbiz.qpic.cn/mmbiz/LrAsoljvo0Pky6dmHzbW0I38AuA1uYkmh5RkbzWRkaISj51LSc2RCRV7yUia5htErWDKCsFV8Fjtic3FpkmDtqVw/0"))
 //			Thumbnails.of(new URL("http://r4.mp.itc.cn/image/out/load/935f48f9-c8e1-4541-91b8-75a771467720.jpg"))
 //			Thumbnails.of(new URL("http://r7.mp.itc.cn/image/out/load/f9efeed7-8fe8-4ef5-a96b-023962724a5b.jpg"))
 //			Thumbnails.of(new File("/Users/gpzuestc/Desktop/web2.jpg"))
-//				.scale(0.5f)
-				.width(160)
+				.scale(0.5f)
+//				.width(160)
 				.outputQuality(1.0f)
 				.imageType(BufferedImage.TYPE_INT_RGB)
 //				.sourceRegion(Positions.CENTER, 160, 160)

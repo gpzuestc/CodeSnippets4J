@@ -72,5 +72,12 @@ public class JodaTest {
 		DateTime nextDate = new DateTime(count * circle);
 		System.out.println(nextDate.toString(dtf));
     }
+    
+    @Test
+    public void testPlus(){
+    	DateTime dt = new DateTime();
+		DateTime endDt = dt.plusDays(1 + 5);
+		System.out.println(endDt.getMillis()/1000);
+    }
 
 }

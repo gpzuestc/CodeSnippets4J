@@ -44,4 +44,10 @@ public class TimeTest {
 		System.out.println(sdf.format(new Date()));
 		
 	}
+	
+	@Test
+	public void testNano(){
+		System.out.println(System.nanoTime());
+		System.out.println(System.currentTimeMillis());
+	}
 }

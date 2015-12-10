@@ -34,6 +34,7 @@ public class StringTest {
 		System.out.println(str2d.matches(pattern));
 		System.out.println(str3.matches(pattern));
 		System.out.println(str3d.matches(pattern));
+		
 	}
 	
 	@Test
@@ -86,9 +87,9 @@ public class StringTest {
 	public void testCount(){
 		String str = "76b1d76c-f07b-4aa6-b910-57775a2f9b62-2.wav";
 		System.out.println(str.split("-").length);
-		Pattern p = Pattern.compile("([\\d]+)\\.");
+		Pattern p = Pattern.compile("([\\d]+)");
 		Matcher m = p.matcher(str);
-		if(m.find()){
+		while(m.find()){
 			System.out.println("a:" + m.group(1));
 		}
 	}
@@ -112,6 +113,10 @@ public class StringTest {
 		str = "a.plbca.pl";
 		result= str.replace(".pl", ".dd");
 		System.out.println(result);
+		
+		
+		String s = "/wx_mp/LrAsoljvo0Pky6dmHzbW0I38AuA1uYkmh5RkbzWRkaISj51LSc2RCRV7yUia5htErWDKCsFV8Fjtic3FpkmDtqVw.jpg";
+		System.out.println(s.replace("/wx_mp/", "").replace(".jpg", ""));
 	}
 	
 	@Test
@@ -272,5 +277,31 @@ public class StringTest {
 		String a = "10:00";
 		String b = "11:00";
 		System.out.println(a.compareTo(b));
+	}
+	
+	@Test
+	public void testSplite(){
+		String url = "http://mmbiz.qpic.cn/mmbiz/LrAsoljvo0Pky6dmHzbW0I38AuA1uYkmh5RkbzWRkaISj51LSc2RCRV7yUia5htErWDKCsFV8Fjtic3FpkmDtqVw/0";
+		String[] strs = url.split("/");
+		if(strs != null && strs.length > 1){
+			String name = strs[strs.length - 2];
+			System.out.println(name);
+		}
+	}
+	
+	@Test
+	public void testNew(){
+		String str = "<123>456";
+		Pattern p = Pattern.compile("[^>]+>");
+		Matcher m = p.matcher(str);
+		if(m.find()){
+			System.out.println("a:" + m.group());
+		}
+	}
+	
+	@Test
+	public void testIndex(){
+		String a = "ab";
+		System.out.println(a.indexOf("?"));
 	}
 }
