@@ -117,6 +117,11 @@ public class StringTest {
 		
 		String s = "/wx_mp/LrAsoljvo0Pky6dmHzbW0I38AuA1uYkmh5RkbzWRkaISj51LSc2RCRV7yUia5htErWDKCsFV8Fjtic3FpkmDtqVw.jpg";
 		System.out.println(s.replace("/wx_mp/", "").replace(".jpg", ""));
+		
+		
+		String a = "aIblc";
+		System.out.println(a.replaceAll("[I|l]", "2"));
+		System.out.println(a.replaceAll("I", "8").replaceAll("l", "6"));
 	}
 	
 	@Test

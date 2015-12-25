@@ -120,12 +120,13 @@ public class RandomTest {
 	@Test
 	public void testRandomUtil(){
 		System.out.println(RandomUtils.nextInt(0, 2));
-		System.out.println(RandomStringUtils.randomAlphabetic(10));
+		System.out.println(RandomStringUtils.randomAlphabetic(6));
 		System.out.println(RandomStringUtils.randomAlphanumeric(10));
 		System.out.println(RandomStringUtils.randomAscii(10));
 		System.out.println(RandomStringUtils.randomNumeric(10));
 		
 		System.out.println(RandomUtils.nextLong(1, 3));
+		System.out.println(RandomStringUtils.randomAlphabetic(6).toLowerCase());
 	}
 }
 
