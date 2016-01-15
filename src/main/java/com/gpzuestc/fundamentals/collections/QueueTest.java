@@ -30,7 +30,7 @@ public class QueueTest {
 		//不会抛异常
 		System.out.println(queue.offer(100));
 		System.out.println(queue.peek()); //返回不移除
-		System.out.println(queue.poll()); //返回移除
+		System.out.println(queue.poll()); //回移返除
 		
 		//会抛异常
 		System.out.println(queue.add(111));

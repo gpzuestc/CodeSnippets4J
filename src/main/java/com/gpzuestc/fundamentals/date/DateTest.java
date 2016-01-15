@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -165,5 +166,13 @@ public class DateTest {
 	public void test0(){
 		Date date = new Date(0L);
 		System.out.println(JsonUtil.toJSONString(date));
+	}
+	
+	@Test
+	public void timeZone(){
+		Long curLong = System.currentTimeMillis();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		sdf.setTimeZone(TimeZone.getTimeZone("GM+0"));
+		System.out.println(sdf.format(new Date(curLong)));
 	}
 }

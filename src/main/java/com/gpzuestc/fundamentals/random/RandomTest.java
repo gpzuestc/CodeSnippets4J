@@ -107,7 +107,7 @@ public class RandomTest {
 		List<String> uuids = new ArrayList<String>();
 		for(int i = 0 ; i < count; i++){
 			UUID uuid = UUID.randomUUID();
-			String str = uuid.toString().replaceAll("-", "").toUpperCase();
+			String str = uuid.toString().replaceAll("-", "");
 			uuids.add(str);
 			System.out.println("http://hello.xianlaohu.com/xxxxx/" + str);
 		}
@@ -127,6 +127,13 @@ public class RandomTest {
 		
 		System.out.println(RandomUtils.nextLong(1, 3));
 		System.out.println(RandomStringUtils.randomAlphabetic(6).toLowerCase());
+	}
+	
+	@Test
+	public void testSeed(){
+		Long seed = 100l;
+		Random random = new Random(seed);
+		System.out.println(random.nextInt(50));
 	}
 }
 

@@ -71,23 +71,23 @@ public class MapTest {
 		map.put("3", 20);
 		map.put("3", map.get("3") + 1);
 		map.remove("4");
-		List<Map.Entry<String, Integer>> values = new ArrayList<Map.Entry<String, Integer>>(map.entrySet());
+		List<Map.Entry<String, Integer>> entry = new ArrayList<Map.Entry<String, Integer>>(map.entrySet());
 		// 排序前
 		System.out.println("befor:");
-		for (int i = 0; i < values.size(); i++) {
-			String id = values.get(i).toString();
+		for (int i = 0; i < entry.size(); i++) {
+			String id = entry.get(i).toString();
 			System.out.println(id);
 		}
 		// 排序
-		Collections.sort(values, new Comparator<Map.Entry<String, Integer>>() {
+		Collections.sort(entry, new Comparator<Map.Entry<String, Integer>>() {
 			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
 				return (o1.getValue() - o2.getValue());
 			}
 		});
 		// 排序后
 		System.out.println("after:");
-		for (int i = 0; i < values.size(); i++) {
-			String id = values.get(i).toString();
+		for (int i = 0; i < entry.size(); i++) {
+			String id = entry.get(i).toString();
 			System.out.println(id);
 		}
 	}

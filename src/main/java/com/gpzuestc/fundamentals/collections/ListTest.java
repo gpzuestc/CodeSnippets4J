@@ -96,7 +96,14 @@ public class ListTest {
 		 * 6
 		 */
 		
-//		System.out.println("rem:" + list.remove(1));
+		System.out.println("rem:" + list.remove(1));
+		/**
+		 * rem:6
+		 * 100
+		 * 1
+		 */
+		
+//		System.out.println("rem:" + list.remove(100)); //exception
 		/**
 		 * rem:6
 		 * 100
