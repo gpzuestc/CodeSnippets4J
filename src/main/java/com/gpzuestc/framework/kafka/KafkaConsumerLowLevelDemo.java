@@ -10,6 +10,7 @@ import java.util.Map;
 import kafka.api.FetchRequest;
 import kafka.api.FetchRequestBuilder;
 import kafka.api.PartitionOffsetRequestInfo;
+import kafka.cluster.BrokerEndPoint;
 import kafka.common.ErrorMapping;
 import kafka.common.TopicAndPartition;
 import kafka.javaapi.FetchResponse;
@@ -196,7 +197,7 @@ public class KafkaConsumerLowLevelDemo {
 	        }
 	        if (returnMetaData != null) {
 	            m_replicaBrokers.clear();
-	            for (kafka.cluster.Broker replica : returnMetaData.replicas()) {
+	            for (BrokerEndPoint replica : returnMetaData.replicas()) {
 	                m_replicaBrokers.add(replica.host());
 	            }
 	        }

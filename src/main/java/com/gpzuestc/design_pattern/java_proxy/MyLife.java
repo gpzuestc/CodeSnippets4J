@@ -21,8 +21,10 @@ public class MyLife implements InvocationHandler{
     public Object bind(Object target) {  
         this.target = target;  
         //取得代理对象  
-        return Proxy.newProxyInstance(target.getClass().getClassLoader(),  
-                target.getClass().getInterfaces(), this);   //需要绑定接口(这是一个缺陷，如果没有实现接口呢？cglib可以弥补这一缺陷)  
+        return Proxy.newProxyInstance(
+        		target.getClass().getClassLoader(),  
+                target.getClass().getInterfaces(),
+                this);   //需要绑定接口(这是一个缺陷，如果没有实现接口呢？cglib可以弥补这一缺陷)  
     }  
   
     @Override  
@@ -51,9 +53,13 @@ public class MyLife implements InvocationHandler{
     	doSth.apply();	
     	doSth.apply1();
     	
+    	System.out.println();
+    	
     	doSth = (DoSth)myLife.bind(new Play());
     	doSth.apply();
     	doSth.apply1();
+    	
+    	System.out.println();
     	
     	myLife.invoke(new DoSth() {
 			

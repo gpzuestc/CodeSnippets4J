@@ -38,4 +38,10 @@ public class TestFile {
 			System.out.println(entry.getKey() + "\t" + entry.getValue());
 		}
 	}
+	
+	@Test
+	public void testCreateFile() throws IOException{
+		File f = new File("/Users/gpzuestc/Downloads/hello.log");
+		FileUtils.write(f, "hello");
+	}
 }

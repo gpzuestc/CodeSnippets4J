@@ -67,7 +67,15 @@ public class LongTest {
 		Long b = 127L;
 		Long c = 128L;
 		Long d = 128L;
-		System.out.println(a == b);
-		System.out.println(c == d);
+		System.out.println(a == b); //true
+		System.out.println(c == d); //false
+		
+		System.out.println(a.equals(127)); //false
+		System.out.println(a.equals(127L)); //true 
+		System.out.println(a == 127); //true
+		
+		System.out.println(c.equals(128)); //false
+		System.out.println(c.equals(128L)); //true
+		System.out.println(c == 128); //true
 	}
 }

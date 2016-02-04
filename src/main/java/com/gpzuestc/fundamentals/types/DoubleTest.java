@@ -27,4 +27,11 @@ public class DoubleTest {
 		System.out.println(b/100);
 		System.out.println(new Double(b%100).longValue());
 	}
+	
+	@Test
+	public void testCompare(){
+		System.out.println(0.99999999f == 1f);
+		System.out.println(0.99999999f - 1f);
+		
+	}
 }

@@ -164,21 +164,28 @@
 			<artifactId>pinyin4j</artifactId>
 			<version>2.5.0</version>
 		</dependency>
-		<dependency>
-			<groupId>com.sohu.twitter</groupId>
-			<artifactId>jsdep-maven-plugin</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.sohu.twitter</groupId> -->
+		<!-- <artifactId>jsdep-maven-plugin</artifactId> -->
+		<!-- <version>1.0-SNAPSHOT</version> -->
+		<!-- <exclusions> -->
+		<!-- <exclusion> -->
+		<!-- <groupId>org.apache.zookeeper</groupId> -->
+		<!-- <artifactId>zookeeper</artifactId> -->
+		<!-- </exclusion> -->
+		<!-- </exclusions> -->
+		<!-- </dependency> -->
+
 		<!-- <dependency> -->
 		<!-- <groupId>com.drewnoakes</groupId> -->
 		<!-- <artifactId>metadata-extractor</artifactId> -->
 		<!-- <version>2.4.0-beta-1</version> -->
 		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.zookeeper</groupId> -->
-		<!-- <artifactId>zookeeper</artifactId> -->
-		<!-- <version>3.4.5</version> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.6</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.sohu.wireless</groupId>
@@ -370,13 +377,20 @@
 		<dependency>
 			<groupId>org.apache.curator</groupId>
 			<artifactId>curator-framework</artifactId>
-			<version>2.7.0</version>
+			<version>2.9.0</version>
 		</dependency>
 
 		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-recipes</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+
+
+		<dependency>
 			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.9.2</artifactId>
-			<version>0.8.1.1</version>
+			<artifactId>kafka_2.11</artifactId>
+			<version>0.9.0.0</version>
 		</dependency>
 
 		<dependency>
