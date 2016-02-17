@@ -135,6 +135,7 @@ public class RandomTest {
 		Random random = new Random(seed);
 		System.out.println(random.nextInt(50));
 	}
+	
 }
 
 
