@@ -1,5 +1,6 @@
 package com.gpzuestc.fundamentals.date;
 
+import java.util.Date;
 import java.util.Locale;
 
 import org.joda.time.DateTime;
@@ -14,6 +15,8 @@ import org.junit.Test;
  * 
  */
 public class JodaTest {
+	
+	DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
 
 	@Test
 	public void testDayOfWeek(){
@@ -78,6 +81,15 @@ public class JodaTest {
     	DateTime dt = new DateTime();
 		DateTime endDt = dt.plusDays(1 + 5);
 		System.out.println(endDt.getMillis()/1000);
+    }
+    
+    @Test
+    public void testTrans(){
+    	DateTime dt = new DateTime(new Date().getTime());
+    	System.out.println(dt.toString());
+    	
+    	Date date = dt.toDate();
+    	System.out.println(date.toString());
     }
 
 }
