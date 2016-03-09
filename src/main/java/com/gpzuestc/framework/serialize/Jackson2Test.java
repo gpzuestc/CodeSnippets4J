@@ -3,9 +3,12 @@ package com.gpzuestc.framework.serialize;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jackson.JsonGenerationException;
@@ -151,11 +154,11 @@ public class Jackson2Test {
 		}
 		System.out.println("fast-json serialize:" + (System.currentTimeMillis() - start));
 		
-//		start = System.currentTimeMillis();
-//		for(int i = 0; i < count; i++){
-//			JSONArray.fromObject(list).toString();
-//		}
-//		System.out.println("json-lib serialize:" + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
+		for(int i = 0; i < count; i++){
+			JSONArray.fromObject(list).toString();
+		}
+		System.out.println("json-lib serialize:" + (System.currentTimeMillis() - start));
 		
 		System.out.println("hessian serialize length:" + HessianSerializeUtil.encode(list).length);
 		System.out.println("hessian serialize length:" + new String(HessianSerializeUtil.encode(list)));
@@ -194,11 +197,11 @@ public class Jackson2Test {
 		System.out.println("fast-json deserialize:" + (System.currentTimeMillis() - start));
 		
 		
-//		start = System.currentTimeMillis();
-//		for(int i = 0; i < count; i++){
-//			JSONArray.fromObject(str);
-//		}
-//		System.out.println("json-lib deSerialize:" + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
+		for(int i = 0; i < count; i++){
+			JSONArray.fromObject(str);
+		}
+		System.out.println("json-lib deSerialize:" + (System.currentTimeMillis() - start));
 		
 		System.out.println();
 		
@@ -219,13 +222,13 @@ public class Jackson2Test {
 		System.out.println("fast-json to bean:" + (System.currentTimeMillis() - start));
 		
 		
-//		start = System.currentTimeMillis();
-//		Map<String, Class> map = new HashMap<String, Class>();
-//		map.put("group",Group.class);
-//		for(int i = 0; i < count; i++){
-//			JSONObject.toBean(JSONObject.fromObject(objStr), User.class, map);
-//		}
-//		System.out.println("json-lib to bean:" + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
+		Map<String, Class> map = new HashMap<String, Class>();
+		map.put("group",Group.class);
+		for(int i = 0; i < count; i++){
+			JSONObject.toBean(JSONObject.fromObject(objStr), User.class, map);
+		}
+		System.out.println("json-lib to bean:" + (System.currentTimeMillis() - start));
 		
 		byte[] bytes = HessianSerializeUtil.encode(JSON.parseObject(objStr, User.class));
 		start = System.currentTimeMillis();

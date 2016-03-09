@@ -1,6 +1,7 @@
 package com.gpzuestc.fundamentals.collections;
 
 import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
@@ -19,23 +20,26 @@ public class QueueTest {
 	
 	@Test
 	public void testQueue(){
-		Queue<Integer> queue = new ConcurrentLinkedQueue<Integer>();
-		queue.add(1);
-		queue.add(2);
-		queue.add(5);
+		Queue<Long> queue = new ConcurrentLinkedQueue<Long>();
+		
+//		queue = new ArrayBlockingQueue<Integer>(10);
+		queue.add(1L);
+		queue.add(2L);
+		queue.add(5L);
 		
 		String a = "a";
 		System.out.println(a.hashCode());
 		
 		//不会抛异常
-		System.out.println(queue.offer(100));
+		System.out.println(queue.offer(100L));
 		System.out.println(queue.peek()); //返回不移除
 		System.out.println(queue.poll()); //回移返除
 		
 		//会抛异常
-		System.out.println(queue.add(111));
+		System.out.println(queue.add(111L));
 		System.out.println(queue.element()); //返回不移除
 		System.out.println(queue.remove()); //返回移除
+		
 	}
 	
 	@Test

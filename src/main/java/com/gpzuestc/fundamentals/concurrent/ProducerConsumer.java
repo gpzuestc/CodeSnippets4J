@@ -21,7 +21,7 @@ class Arraybuffer {
 	public int[] intArray = new int[10];
 
 	public synchronized void put(int value) throws InterruptedException {
-		if (pnum == intArray.length) {
+		while (pnum == intArray.length) {
 			System.out.println("intArry is full");
 			wait();
 		}
@@ -31,7 +31,7 @@ class Arraybuffer {
 	}
 
 	public synchronized int get() throws InterruptedException {
-		if (pnum == 0) {
+		while (pnum == 0) {
 			System.out.println("intArry is empty");
 			wait();
 		}

@@ -8,7 +8,10 @@ package com.gpzuestc.constructor;
 
 public class Child extends Parent{
 	
+	public static Integer m = 8;
+	
 	public Child(){
+		System.out.println("chid static var;m=" + m);
 		System.out.println("child c()");
 	}
 	

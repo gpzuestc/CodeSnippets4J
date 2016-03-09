@@ -136,6 +136,11 @@ public class RandomTest {
 		System.out.println(random.nextInt(50));
 	}
 	
+	
+	@Test
+	public void testMath(){
+		System.out.println(Math.random());
+	}
 }
 
 

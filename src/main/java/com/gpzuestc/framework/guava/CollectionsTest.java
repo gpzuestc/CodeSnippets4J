@@ -19,6 +19,7 @@ public class CollectionsTest {
 		 map.put(21, 3);
 		 
 		 System.out.println(map.get(20));
+		 System.out.println("map_size:" + map.size());
 		 
 		 for(Map.Entry<Integer, Integer> entry : map.entries()){
 			 System.out.println(entry.getKey() + ":" + entry.getValue());

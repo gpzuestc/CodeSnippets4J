@@ -9,6 +9,8 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import com.gpzuestc.util.JsonUtil;
+
 /**
  * @author gpzuestc
  * @mail: guopengzhang@sohu-inc.com
@@ -78,9 +80,14 @@ public class StringTest {
 		int pos = a.indexOf("b");
 		System.out.println(pos);
 		System.out.println(a.substring(0, pos));
+
+		String filename = "abc.img";
+		System.out.println(filename.substring(filename.indexOf(".")));
+		System.out.println(filename.substring(filename.indexOf(".") + 1));
 		
 		String str = "abcdef";
-		System.out.println(str.substring(0, 10));
+		System.out.println(str.substring(0, 10)); //StringIndexOutOfBoundsException
+		
 	}
 	
 	@Test
@@ -292,21 +299,51 @@ public class StringTest {
 			String name = strs[strs.length - 2];
 			System.out.println(name);
 		}
+		
+		String str = "ab||c|||dd||";
+		System.out.println(JsonUtil.toJSON(str.split("\\|\\|")));
 	}
 	
 	@Test
 	public void testNew(){
-		String str = "<123>456";
+		String str = "abc<123>456";
 		Pattern p = Pattern.compile("[^>]+>");
 		Matcher m = p.matcher(str);
 		if(m.find()){
-			System.out.println("a:" + m.group());
+			System.out.println("res:" + m.group());
 		}
 	}
+	
+	@Test
+	public void test123(){
+		String str = "abc<123>456<xyz>wea";
+		Pattern p = Pattern.compile("<([^>]+)>");
+		Matcher m = p.matcher(str);
+		while(m.find()){
+			System.out.println("res:" + m.group());
+			System.out.println("res:" + m.group(0));
+			System.out.println("res:" + m.group(1));
+//			System.out.println("res:" + m.group(2)); //
+			System.out.println();
+		}
+	}
+	
 	
 	@Test
 	public void testIndex(){
 		String a = "ab";
 		System.out.println(a.indexOf("?"));
+	}
+	
+	@Test
+	public void testReverse(){
+		String str = "abcde";
+		char[] chars = str.toCharArray();
+		for(int i = 0; i < chars.length / 2; i++){
+			char temp = chars[i];
+			chars[i] = chars[chars.length - 1 - i];
+			chars[chars.length - 1 - i] = temp;
+		}
+		System.out.println(new String(chars));
 	}
 }
