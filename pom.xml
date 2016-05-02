@@ -159,11 +159,18 @@
 			<version>1.6.6</version>
 		</dependency>
 
-		<dependency>
+<!--		<dependency>
 			<groupId>net.sourceforge.pinyin4j</groupId>
 			<artifactId>pinyin4j</artifactId>
 			<version>2.5.0</version>
+		</dependency>-->
+
+		<dependency>
+			<groupId>com.belerweb</groupId>
+			<artifactId>pinyin4j</artifactId>
+			<version>2.5.1</version>
 		</dependency>
+
 		<!-- <dependency> -->
 		<!-- <groupId>com.sohu.twitter</groupId> -->
 		<!-- <artifactId>jsdep-maven-plugin</artifactId> -->
@@ -457,6 +464,21 @@
 
 	</dependencies>
 
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+			<!--		<include>**/*.xml</include>
+					<include>**/*.properties</include>-->
+					<include>**/*.*</include>
+				</includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+			</resource>
+		</resources>
+	</build>
 
 	<!-- <repositories> -->
 	<!-- <repository> -->

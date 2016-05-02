@@ -22,6 +22,12 @@
 		insert into user (name)
 		values (#{name})
 	</insert>
+
+	<update id="update" parameterType="User">
+		update user set
+		name = #{name}
+		where id = #{id}
+	</update>
 	
 	<select id="findByNameAndStartAndSize" parameterType="hashmap" resultType="User">
 		select *
