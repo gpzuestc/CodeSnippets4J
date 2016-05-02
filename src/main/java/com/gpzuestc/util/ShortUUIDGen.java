@@ -3,7 +3,6 @@ package com.gpzuestc.util;
 import java.util.UUID;
 
 import com.gpzuestc.encrypt.Base64;
-import com.sohu.wireless.util.EncryptUtil;
 
 public class ShortUUIDGen {
 

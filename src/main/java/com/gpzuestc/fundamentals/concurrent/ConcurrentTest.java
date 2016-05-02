@@ -15,7 +15,26 @@ public class ConcurrentTest {
 	private ReentrantLock lock = new ReentrantLock();
 	
 	public static void main(String[] args) {
-		
+		testStart();
+	}
+	
+	public static void testStart(){
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println(111);
+				
+			}
+		});
+		t.start();
+		t.start();
 	}
 	
 	@Test

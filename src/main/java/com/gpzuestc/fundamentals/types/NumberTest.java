@@ -56,4 +56,22 @@ public class NumberTest {
 		System.out.println(String.format("%.2f", 2.00 - 1.10)); 
 	}
 	
+	@Test
+	public void testIncr(){
+		int a = 1;
+		a = a++;
+//		System.out.println(a++);
+		System.out.println(a);
+	}
+	
+	@Test
+	public void testShort(){
+		short a = 12222;
+		Integer b = 2;
+//		short c = (short)b;
+		Long aa = 12L;
+//		Integer ba = (Integer)aa;
+		System.out.println(a);
+	}
+	
 }
