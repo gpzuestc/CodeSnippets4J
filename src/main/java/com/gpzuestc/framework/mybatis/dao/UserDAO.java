@@ -14,5 +14,5 @@ public interface UserDAO {
 	
 	List<User> findByNameAndStartAndSize(@Param("name") String name, @Param("start") Integer start, @Param("size") Integer size);
 
-	int update(User user);
+	int update(User user); //
 }
