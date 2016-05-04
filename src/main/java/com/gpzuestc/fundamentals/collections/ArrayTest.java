@@ -1,7 +1,10 @@
 package com.gpzuestc.fundamentals.collections;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import com.gpzuestc.util.JsonUtil;
 import org.apache.commons.lang.ArrayUtils;
 import org.junit.Test;
 
@@ -86,5 +89,23 @@ public class ArrayTest {
 			}
 			System.out.println(i + ":" + ArrayUtils.subarray(arr, b, e).length);
 		}
+	}
+
+	@Test
+	public void testToArray(){
+		List<String> list = new ArrayList<>();
+		list.add("a");
+		list.add("b");
+		list.add("c");
+		Object[] objArr = list.toArray();
+		System.out.println(JsonUtil.toJSONString(objArr));
+
+		Object[] objArr2 = {"", "", "", ""};
+		list.toArray(objArr2);
+		System.out.println(JsonUtil.toJSONString(objArr2));
+
+		Object[] objArr3 = {""};
+		list.toArray(objArr3);
+		System.out.println(JsonUtil.toJSONString(objArr3));
 	}
 }

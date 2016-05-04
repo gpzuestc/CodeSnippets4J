@@ -14,4 +14,6 @@ import java.util.List;
 
 public class Foo{
 	public static final List<User> list = Arrays.asList(new User[]{new User(), new User(), new User()});
+
+	//test
 }
