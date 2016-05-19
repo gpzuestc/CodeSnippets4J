@@ -29,7 +29,8 @@ public class MybatisDemo {
 	@Test
 	public void testLoad(){
 		System.out.println();
-		System.out.println(userDAO.load(1L).getName());
+//		System.out.println(userDAO.load(1L).getName());
+		System.out.println(userDAO.load(null));
 	}
 	
 	@Test

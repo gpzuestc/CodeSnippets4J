@@ -38,4 +38,16 @@ public class SyntaxTest {
 		}
 	}
 
+	@Test
+	public void testSwitchNull() {
+		Integer a = null;
+		switch (a) {   //null exception
+			case  1:
+				System.out.println(1);
+				break;
+			default:
+		}
+		System.out.println("end");
+	}
+
 }

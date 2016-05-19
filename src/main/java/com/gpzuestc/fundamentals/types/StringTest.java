@@ -85,9 +85,21 @@ public class StringTest {
 		System.out.println(filename.substring(filename.indexOf(".")));
 		System.out.println(filename.substring(filename.indexOf(".") + 1));
 		
-		String str = "abcdef";
-		System.out.println(str.substring(0, 10)); //StringIndexOutOfBoundsException
-		
+//		String str = "abcdef";
+//		System.out.println(str.substring(0, 10)); //StringIndexOutOfBoundsException
+
+//		String indexStr = "bababa";
+//		String indexStr = "ababa";
+//		String indexStr = "ba";
+//		String indexStr = "b";
+		String indexStr = "a";
+		int index = indexStr.indexOf("a");
+		System.out.println(index);
+		System.out.println(indexStr.substring(0, index));
+		System.out.println(indexStr.substring(index + 1, indexStr.length()));
+
+		String str = "a";
+		System.out.println("subString 0 0 :" + str.substring(0, 0));
 	}
 	
 	@Test

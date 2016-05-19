@@ -352,7 +352,7 @@ public class ListTest {
 		System.out.println(aList.removeAll(bList));
 		System.out.println(aList.removeAll(cList));
 		System.out.println(aList);
-		
+		System.out.println("hehe:" + String.valueOf(aList));
 	}
 	
 	@Test
@@ -373,5 +373,38 @@ public class ListTest {
 		list.add("a");
 		list.add(0, "bb");
 		System.out.println(JsonUtil.toJSONString(list));
+	}
+
+	@Test
+	public void testAddAllNull() {
+		List<String> list = new ArrayList<>();
+		list.add("1");
+		list.addAll(null);  //报null异常
+		System.out.println(Arrays.toString(list.toArray()));
+	}
+
+	@Test
+	public void testAddAll() {
+		List<String> list = new ArrayList<>();
+		list.add("1");
+
+		List<String> appList = new ArrayList<>();
+		appList.add("2");
+		list.addAll(appList);
+
+		appList = new ArrayList<>();
+		appList.add("3");
+		list.addAll(appList);
+
+		System.out.println(JsonUtil.toJSONString(list));
+	}
+
+	@Test
+	public void testForNull() {
+		List<String> list = null;
+		for (String i : list) { // null exception
+			System.out.println("hi");
+		}
+		System.out.println("end");
 	}
 }

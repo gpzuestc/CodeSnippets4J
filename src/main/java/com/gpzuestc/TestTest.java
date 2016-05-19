@@ -29,10 +29,20 @@ public class TestTest {
         int c = initialCapacity / ssize; 
         if(c * ssize < initialCapacity) 
             ++c; 
-        int cap = 1; 
+        int cap = 1;
         while(cap < c) 
             cap <<= 1; 
         System.out.println(ssize);
         System.out.println(cap);
 	}
+
+    @Test
+    public void test1() {
+        testp("a", "b");
+//        testp("ab");
+    }
+
+    private void testp(String a, String b) {
+        System.out.println(a + b);
+    }
 }

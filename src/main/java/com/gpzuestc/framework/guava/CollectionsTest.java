@@ -1,13 +1,14 @@
 package com.gpzuestc.framework.guava;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+import com.gpzuestc.util.JsonUtil;
+import org.junit.Test;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import org.junit.Test;
-
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Maps;
 
 public class CollectionsTest {
 	
@@ -39,5 +40,16 @@ public class CollectionsTest {
 	@Test
 	public void test(){
 		Map<String, Map<Long, List<String>>> map = Maps.newHashMap();
+	}
+
+	@Test
+	public void testImmutableMap() {
+//		ImmutableMap<String, String> immutableMap =
+		ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+		builder.put("1", "1");
+		builder.put("2", "3");
+		ImmutableMap<String, String> immutableMap = builder.build();
+		System.out.println(JsonUtil.toJSONString(immutableMap));
+
 	}
 }

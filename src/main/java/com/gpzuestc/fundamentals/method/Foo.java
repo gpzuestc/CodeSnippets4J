@@ -9,8 +9,9 @@ package com.gpzuestc.fundamentals.method;
 public class Foo { 
     private String msg; 
     private String text;
+    private String f;
 
-    public Foo(String msg) { 
+    public Foo(String msg) {
         this.msg = msg; 
     } 
 
@@ -33,6 +34,14 @@ public class Foo {
     
     public String getText(){
     	return text;
+    }
+
+    public String getF() {
+        return f;
+    }
+
+    public void setF(String f) {
+        this.f = f;
     }
 }
 

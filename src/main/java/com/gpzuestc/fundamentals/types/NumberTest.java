@@ -53,7 +53,7 @@ public class NumberTest {
 	public void testFloat(){
 		System.out.println(2 - 1.1); 
 		System.out.println(2.00 - 1.10); 
-		System.out.println(String.format("%.2f", 2.00 - 1.10)); 
+		System.out.println(String.format("%.2f", 2.00 - 1.10));
 	}
 	
 	@Test
@@ -72,6 +72,12 @@ public class NumberTest {
 		Long aa = 12L;
 //		Integer ba = (Integer)aa;
 		System.out.println(a);
+	}
+
+	@Test
+	public void testInteger2Double() {
+		Integer i = 16;
+		System.out.println(i.doubleValue() / 10);
 	}
 	
 }

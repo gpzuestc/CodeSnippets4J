@@ -11,6 +11,7 @@
 		<!-- <jedis.version>2.5.1</jedis.version> -->
 		<!-- <spring.version>3.2.3.RELEASE</spring.version> -->
 		<spring.version>4.0.5.RELEASE</spring.version>
+		<log4j.version>2.0.2</log4j.version>
 	</properties>
 	<dependencies>
 <!-- 		<dependency> -->
@@ -459,7 +460,35 @@
 			<artifactId>poi</artifactId>
 			<version>3.13</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.6</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jcl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
 
 
 	</dependencies>
