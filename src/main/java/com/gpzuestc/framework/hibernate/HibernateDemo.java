@@ -2,8 +2,11 @@ package com.gpzuestc.framework.hibernate;
 
 import java.util.List;
 
+import com.gpzuestc.framework.hibernate.service.PlayerService;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -12,6 +15,11 @@ import com.gpzuestc.framework.hibernate.entity.Player;
 import com.gpzuestc.framework.hibernate.entity.Team;
 import com.gpzuestc.util.ClassUtils;
 import com.gpzuestc.util.JsonUtil;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author gpzuestc
@@ -19,27 +27,39 @@ import com.gpzuestc.util.JsonUtil;
  * @description:  
  * 
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath*:**/hibernate/**/applicationContext.xml"})
 public class HibernateDemo {
 	public static ApplicationContext context = null;
-	private static PlayerDAO playerDAO = null;
-	
+
+//	private static PlayerDAO playerDAO = null;
+
+	@Autowired
+	private PlayerDAO playerDAO;
+
+	@Autowired
+	private PlayerService playerService;
+
+
 	@BeforeClass
 	public static void before(){
 //		context = new ClassPathXmlApplicationContext(new String[] { "/com/gpzuestc/framework/hibernate/applicationContext.xml" });
 		context = new ClassPathXmlApplicationContext(ClassUtils.getPackagePathOfClass(HibernateDemo.class) + "/applicationContext.xml");
-		playerDAO = (PlayerDAO)context.getBean("playerDAO");
+//		playerDAO = (PlayerDAO)context.getBean("playerDAO");
+//		playerse
 	}
 	
 	@Test
+	@Transactional
 	public void testGetEntity(){
-		Player player = playerDAO.get(1L);
+		Player player = playerDAO.get(10L);
 		System.out.println(player.getName());
 		System.out.println(player.getTeam());
 		System.out.println(player.getTeamId());
 		player.setName("Pirlo1");
 		System.out.println(player.getName());
 		
-		player = playerDAO.get(1L);
+		player = playerDAO.get(10L);
 		System.out.println(player.getName());
 	}
 	
@@ -78,32 +98,80 @@ public class HibernateDemo {
 	}
 	
 	@Test
+	@Transactional
 	public void testCreatePlayer(){
-//		Player player = new Player();
-//		player.setName("guopeng");
-//		Team team = new Team();
-//		team.setId(1L);
-//		player.setTeam(team);
-//		System.out.println(playerDAO.savePlayer(player));
 		
 		Player player = new Player();
-		player.setName("guopeng");
+		player.setName("guopeng222");
 		player.setTestBoolean(true);
-		Team team = new Team();
-		team.setId(2L);
-		team.setName("teamaa");
-		player.setTeam(team);
 		System.out.println(playerDAO.savePlayer(player));
+		boolean exp = true;
+		if (exp) {
+			throw new RuntimeException();
+		}
+		System.out.println(playerDAO.savePlayer(player));
+
+//		System.out.println(playerService.savePlayer(player));
 	}
-	
+
 	@Test
 	public void testConcat(){
 		Object obj = playerDAO.listContact();
 		System.out.println(JsonUtil.toJSONString(obj));
 	}
-	
+
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void testCreate1() {
+		System.out.println(playerDAO.count());
+
+		Player player = new Player();
+		player.setName("guopeng42");
+
+//		playerDAO.savePlayer(player);
+
+		player = new Player();
+		player.setName("guopeng55");
+		playerService.savePlayer(player);
+
+		System.out.println(playerDAO.count());
+	}
+
 	@Test
 	public void testTime(){
 		System.out.println(JsonUtil.toJSONString(playerDAO.listTimeStamp()));
+	}
+
+	@Test
+	@Transactional
+	public void testGet() throws Exception{
+		System.out.println(111);
+		Player player = playerDAO.getPlayer(10L);
+
+		Thread.sleep(1000L);
+		System.out.println(player.getName());
+		player = playerDAO.getPlayer(10L);
+		System.out.println(player.getName());
+	}
+
+
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void testUpdate() {
+
+		Player player = playerDAO.getPlayer(10L);
+		System.out.println(player.getName());
+//		player.setName("guopeng42");
+
+//		playerDAO.savePlayer(player);
+
+//		player = new Player();
+//		player.setName("guopeng55");
+		playerService.updatePlayer(player);
+
+		player = playerDAO.getPlayer(10L);
+		System.out.println(player.getName());
 	}
 }

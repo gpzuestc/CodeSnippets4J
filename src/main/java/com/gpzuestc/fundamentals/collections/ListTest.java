@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.sf.json.JSONArray;
+//import net.sf.json.JSONArray;
 
 import org.junit.Test;
 
@@ -207,38 +207,38 @@ public class ListTest {
 		}
 	}
 	
-	@Test
-	public void testSubList(){
-		List<String> list = new ArrayList<String>();
-		list.add("a");
-		list.add("b");
-		list.add("c");
-		list.add("d");
-		
-		List<String> subList = list.subList(0, 2);
-		System.out.println(JSONArray.fromObject(subList).toString());
-		
-//		subList = list.subList(0, 10); //报错
-//		subList = list.subList(6, 8); //报错
-//		subList = list.subList(3, 1); //报错
-//		subList = list.subList(0, 0);
-		subList = list.subList(3, 4);
-		System.out.println(JSONArray.fromObject(subList).toString());
-
-		//sublist添加元素也会影响原来的list
-		subList.add("e");
-//		list.add("f");  //list不能再添加元素？？？？？
-		System.out.println(JSONArray.fromObject(subList).toString());
-		System.out.println(JSONArray.fromObject(list).toString());
-		
-		list = list.subList(0, 3);
-		System.out.println(JSONArray.fromObject(list).toString());
-		
-//		list.add("f");
+//	@Test
+//	public void testSubList(){
+//		List<String> list = new ArrayList<String>();
+//		list.add("a");
+//		list.add("b");
+//		list.add("c");
+//		list.add("d");
+//
+//		List<String> subList = list.subList(0, 2);
+//		System.out.println(JSONArray.fromObject(subList).toString());
+//
+////		subList = list.subList(0, 10); //报错
+////		subList = list.subList(6, 8); //报错
+////		subList = list.subList(3, 1); //报错
+////		subList = list.subList(0, 0);
+//		subList = list.subList(3, 4);
+//		System.out.println(JSONArray.fromObject(subList).toString());
+//
+//		//sublist添加元素也会影响原来的list
+//		subList.add("e");
+////		list.add("f");  //list不能再添加元素？？？？？
 //		System.out.println(JSONArray.fromObject(subList).toString());
 //		System.out.println(JSONArray.fromObject(list).toString());
-		
-	}
+//
+//		list = list.subList(0, 3);
+//		System.out.println(JSONArray.fromObject(list).toString());
+//
+////		list.add("f");
+////		System.out.println(JSONArray.fromObject(subList).toString());
+////		System.out.println(JSONArray.fromObject(list).toString());
+//
+//	}
 	
 	@Test
 	public void testIndexOf(){

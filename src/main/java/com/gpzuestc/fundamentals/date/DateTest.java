@@ -175,4 +175,15 @@ public class DateTest {
 		sdf.setTimeZone(TimeZone.getTimeZone("GM+0"));
 		System.out.println(sdf.format(new Date(curLong)));
 	}
+
+
+	@Test
+	public void compare() throws  Exception{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date d1 = sdf.parse("2011-09-08 00:01:00");
+		Date d2 = sdf.parse("2011-09-08 00:01:00");
+		System.out.println(d1.compareTo(d2));
+		System.out.println(d2.compareTo(d1));
+		System.out.println(d1);
+	}
 }

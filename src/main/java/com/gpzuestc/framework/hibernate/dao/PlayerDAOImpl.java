@@ -7,6 +7,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
@@ -44,12 +46,24 @@ public class PlayerDAOImpl implements PlayerDAO{
 		session.setFlushMode(FlushMode.AUTO);
 //		session.setFlushMode(FlushMode.MANUAL); //manual 不会主动update
 		Player p = (Player)session.get(Player.class, id);
-		System.out.println("in db:" + p.getName());
-		p.setName("Pirlo");
+//		System.out.println("in db:" + p.getName());
+//		p.setName("Pirlo");
 		return p;
 //		
 		
 //		return (Player)localSessionFactory.getObject().getCurrentSession().get(Player.class, id);
+	}
+
+	@Override
+	public void update(Player player) {
+		System.out.println("update" + localHibernateTemplate.getSessionFactory().getCurrentSession().hashCode());
+		localHibernateTemplate.update(player);
+	}
+
+	@Override
+	public Player getPlayer(Long id) {
+		System.out.println("getPlayer: " + localHibernateTemplate.getSessionFactory().getCurrentSession().hashCode());
+		return localHibernateTemplate.get(Player.class, id);
 	}
 
 	@Override
@@ -155,7 +169,24 @@ public class PlayerDAOImpl implements PlayerDAO{
 
 	@Override
 	public Long savePlayer(Player player) {
+		System.out.println(localHibernateTemplate.getSessionFactory().getCurrentSession());
 		return (Long)localHibernateTemplate.save(player);
+	}
+
+	private DetachedCriteria getCriteria() {
+		return DetachedCriteria.forClass(Player.class);
+	}
+
+	@Override
+	public Long count() {
+		System.out.println(localHibernateTemplate.getSessionFactory().getCurrentSession());
+		DetachedCriteria dc = getCriteria();
+		dc.setProjection(Projections.rowCount());
+		List<?> list = localHibernateTemplate.findByCriteria(dc);
+		if (list.size() > 0) {
+			return (Long) list.get(0);
+		}
+		return 0L;
 	}
 
 	@SuppressWarnings("unchecked")

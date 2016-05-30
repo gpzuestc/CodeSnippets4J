@@ -13,6 +13,10 @@ import com.gpzuestc.framework.hibernate.entity.PlayerBO;
  */
 public interface PlayerDAO {
 	Player get(Long id);
+
+	void update(Player player);
+
+	Player getPlayer(Long id);
 	
 	PlayerBO getPlayerBO(Long id);
 	
@@ -27,6 +31,8 @@ public interface PlayerDAO {
 	List<Player> getPlayersLefJoinFetch();
 	
 	Long savePlayer(Player player);
+
+	Long count();
 	
 	
 	Object listContact();

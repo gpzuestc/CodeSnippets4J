@@ -38,5 +38,17 @@ public class IntegerTest {
 		
 		System.out.println(c == b); //true
 	}
+
+	@Test
+	public void testEquals() {
+		Integer a = new Integer(127);
+		Integer b = new Integer(127);
+//		Integer a = 127;
+//		Integer b = 127;
+
+//		Integer a = 128;
+//		Integer b = 128;
+		System.out.println(a == b);
+	}
 	
 }

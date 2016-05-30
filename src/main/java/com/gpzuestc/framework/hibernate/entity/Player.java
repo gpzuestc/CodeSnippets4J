@@ -66,7 +66,9 @@ public class Player {
 	}
 	public void setTeam(Team team) {
 		this.team = team;
-		this.teamId = team.getId();
+		if (team != null) {
+			this.teamId = team.getId();
+		}
 	}
 	
 	@Column(name = "test_boolean")
